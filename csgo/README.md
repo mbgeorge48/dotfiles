@@ -1,3 +1,3 @@
-Going to keep a copy of my csgo autoexec in here, I lost it last time I had to reinstall the game and it took ages to recreate it
+The autoexec lives `..\Steam\steamapps\common\Counter-Strike Global Offensive\csgo\cfg`
 
-Maybe a few text dumps of other useful commands as well?
+The launch options I'm using are `-refresh 144 -tickrate 128 +fps_max 0 -novid -nojoy -fullscreen +exec autoexec.cfg`
