@@ -2,6 +2,7 @@
 	email = mbgeorge48@gmail.com
 	name = Matt George
 	username = mbgeorge48
+    # Will be different on different systems
 	signingkey = 0DEB0186BE123237
 
 [alias]
