@@ -1,0 +1,13 @@
+#!/bin/zsh
+
+autoload -Uz vcs_info
+precmd() { vcs_info }
+zstyle ':vcs_info:git:*' formats ' [%b]'
+
+
+autoload -U colors && colors
+PS1="%{$fg[red]%}%n%{$reset_color%}@%{$fg[blue]%}%m %{$fg[yellow]%}%~ %{$reset_color%}%% "
+
+setopt PROMPT_SUBST
+PROMPT='%F{cyan}%n%f => %F{magenta}${PWD/#$HOME/~}%f%F{red}${vcs_info_msg_0_}%f %F{yellow}$%f '
+
