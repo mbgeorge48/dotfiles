@@ -1,7 +1,4 @@
 {
-  "html.format.indentInnerHtml": true,
-  "html.format.preserveNewLines": false,
-  "editor.fontFamily": "Hack, Inconsolata-Regular, Consolas, 'Courier New', monospace",
   "[django-html]": {
     "editor.formatOnSave": false
   },
@@ -29,6 +26,7 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "editor.fontFamily": "Hack, Inconsolata-Regular, Consolas, 'Courier New', monospace",
   "diffEditor.ignoreTrimWhitespace": false,
   "editor.fontSize": 14,
   "editor.fontLigatures": false,
@@ -46,6 +44,8 @@
   "git.autofetch": true,
   "git.confirmSync": false,
   "git.enableSmartCommit": false,
+  "html.format.indentInnerHtml": true,
+  "html.format.preserveNewLines": false,
   "python.defaultInterpreterPath": "${workspaceFolder}/.env/bin/python",
   "python.formatting.provider": "black",
   "python.linting.flake8Enabled": true,
