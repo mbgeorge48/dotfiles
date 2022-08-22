@@ -2,8 +2,7 @@
 	email = mbgeorge48@gmail.com
 	name = Matt George
 	username = mbgeorge48
-    # Will be different on different systems
-	signingkey = 0DEB0186BE123237
+	signingkey = 22A10A080691FC53
 
 [alias]
 	# View abbreviated SHA, description, and history graph of the latest 20 commits
