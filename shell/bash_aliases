@@ -1,0 +1,5 @@
+#!/bin/bash
+
+
+export PS1="[\e[1;36m\u\e[0m@\e[1;31m\h \e[0m \e[1;35m\w\e[0m ]\$ "
+export PS2='=> '
