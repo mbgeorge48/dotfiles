@@ -17,7 +17,7 @@ Making certain directories
 
 ### Git
 
-### NPM
+### Node
 
 ### Postgres
 
