@@ -46,6 +46,7 @@
 	# More info: <http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/>
 	trustctime = false
 	editor = vim
+	autocrlf = true
 
 [color]
 	# Use colors in Git commands that are capable of colored output when
@@ -92,7 +93,3 @@
 
 [init]
 	defaultBranch = main
-
-# Windows Only
-# [gpg]
-# 	program = C:\\Program Files (x86)\\GnuPG\\bin\\gpg.exe
