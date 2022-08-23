@@ -13,13 +13,9 @@ Making certain directories
 
 ### CSGO
 
-### Expo
-
 ### Git
 
 ### Node
-
-### Postgres
 
 ### Python
 
