@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 code --install-extension 2gua.rainbow-brackets
 code --install-extension batisteo.vscode-django

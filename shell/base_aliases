@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 alias ls='ls -FG'
 alias ll='ls -ahl'
@@ -6,7 +6,6 @@ alias ll='ls -ahl'
 alias gh='history | grep'
 
 alias cpv='rsync -ah --info=progress2'
-
 
 case $SHELL in
 
@@ -19,7 +18,7 @@ case $SHELL in
   '/bin/bash')
     if [ -e $HOME/.dotfiles/shell/bash_aliases ]; then
       source $HOME/.dotfiles/shell/bash_aliases
-    fi    
+    fi
     ;;
   *)
     echo "Unrecognised Shell"
