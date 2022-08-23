@@ -1,5 +1,12 @@
 #!/bin/zsh
 
+alias ls='ls -FG'
+alias ll='ls -ahl'
+
+alias gh='history | grep'
+
+alias cpv='rsync -ah --info=progress2'
+
 autoload -Uz vcs_info
 precmd() { vcs_info }
 zstyle ':vcs_info:git:*' formats ' [%b]'
@@ -11,3 +18,12 @@ PS1="%{$fg[red]%}%n%{$reset_color%}@%{$fg[blue]%}%m %{$fg[yellow]%}%~ %{$reset_c
 setopt PROMPT_SUBST
 export PS1='%(?.%F{green}✔ %f.%F{red}x %f)%F{cyan}%n%f => %F{magenta}${PWD/#$HOME/~}%f%F{red}${vcs_info_msg_0_}%f %F{yellow}$%f '
 export PS2='=> '
+
+if [ -e $HOME/.dotfiles/node/nvm ]; then
+    command -v nvm >/dev/null 2>&1 && source $HOME/.dotfiles/node/nvm
+fi
+
+if [ -e $HOME/.dotfiles/python/python ]; then
+    command -v python3 > /dev/null 2>&1 && { source $HOME/.dotfiles/python/python }
+    command -v python > /dev/null 2>&1 && source $HOME/.dotfiles/python/python
+fi
