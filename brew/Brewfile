@@ -12,6 +12,7 @@ brew "srt"
 brew "gnupg"
 brew "krb5"
 brew "libxmlsec1"
+brew "node"
 brew "pinentry-mac"
 brew "postgresql", restart_service: true
 brew "pyenv", args: ["HEAD"]
