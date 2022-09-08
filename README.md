@@ -49,6 +49,12 @@ For things not included in `setup.sh`
 
 ### CSGO
 
+_Bit of a random one but last time I reinstalled the game I lost it all so wanted to keep a backed up copy_
+
+The autoexec lives `..\Steam\steamapps\common\Counter-Strike Global Offensive\csgo\cfg`
+
+The launch options I'm using are `-refresh 144 -tickrate 128 +fps_max 0 -novid -nojoy -fullscreen +exec autoexec.cfg`
+
 ### VS Code
 
 ## TODOs
