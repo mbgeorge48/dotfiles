@@ -3,8 +3,8 @@ function set_versions_python {
         pyenv install --skip-existing
         pyenv exec python -m venv env
 
-        env/bin/pip install --upgrade pip
-        env/bin/pip install -r requirements.txt
+        env/bin/pip install -q --upgrade pip
+        env/bin/pip install -q -r requirements.txt
     fi
 }
 set_versions_python
