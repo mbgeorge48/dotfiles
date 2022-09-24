@@ -1,5 +1,7 @@
 # dotfiles
 
+_Haven't really tested this in WSL and the setup script won't work in regular Windows. So it might be worth manually copying them into place_
+
 ## Setup
 
 1. Install Apple's Command Line Tools, which are prerequisites for Git and Homebrew.
@@ -55,6 +57,6 @@ The autoexec lives `..\Steam\steamapps\common\Counter-Strike Global Offensive\cs
 
 The launch options I'm using are `-refresh 144 -tickrate 128 +fps_max 0 -novid -nojoy -fullscreen +exec autoexec.cfg`
 
-### VS Code
-
 ## TODOs
+
+- Make a similar autoexec from CSGO but for TF2
