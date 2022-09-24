@@ -13,16 +13,24 @@ fi
 
 case $SHELL in
     '/bin/zsh')
-        ln -s ~/.dotfiles/shell/zsh_aliases ~/.gitconfig
-
-        # create symlink
-        # Add source bla bla to the zshrc file
+        ln -s ~/.dotfiles/shell/zsh_aliases ~/.zsh_aliases
+        if ! grep -q "source ~/.zsh_aliases" ~/.zshrc; then
+            echo -e "\nsource ~/.zsh_aliases\n" >> ~/.zshrc
+        fi
     ;;
-
     '/bin/bash')
-        # Same as above
+        ln -s ~/.dotfiles/shell/bash_aliases ~/.bash_aliases
+        if ! grep -q "source ~/.bash_aliases" ~/.bashrc; then
+            echo -e "\nsource ~/.bash_aliases\n" >> ~/.bashrc
+        fi
     ;;
 esac
+
+
+# Brew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew bundle --file ~/.dotfiles/brew/Brewfile
+
 
 # Git
 if [ -s ~/.gitconfig ]; then
@@ -30,14 +38,18 @@ if [ -s ~/.gitconfig ]; then
 fi
 ln -s ~/.dotfiles/git/gitconfig ~/.gitconfig
 
+
 # Vim
 if [ -s ~/.vimrc ]; then
     mv ~/.vimrc archive/
 fi
 ln -s ~/.dotfiles/vim/vimrc ~/.vimrc
 
-# Node
-
-# Python
 
 # Vscode
+if [ -s ~/Library/Application Support/Code/User/settings.json ]; then
+    mv ~/Library/Application Support/Code/User/settings.json archive/
+fi
+ln -s ~/.dotfiles/vscode/settings.json ~/Library/Application Support/Code/User/settings.json
+
+source ~/.dotfiles/vscode/extensions
