@@ -49,6 +49,12 @@ bash ~/.dotfiles/setup.sh
 
 For things not included in `setup.sh`
 
+### GPG and SSH keys for GitHub
+
+[Follow this guide to setup your GPG key](https://docs.github.com/en/authentication/managing-commit-signature-verification/adding-a-gpg-key-to-your-github-account)
+
+[Follow this guide to setup you SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
+
 ### CSGO
 
 _Bit of a random one but last time I reinstalled the game I lost it all so wanted to keep a backed up copy_
