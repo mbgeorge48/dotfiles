@@ -55,13 +55,21 @@ For things not included in `setup.sh`
 
 [Follow this guide to setup you SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
 
-### CSGO
+### Games
 
 _Bit of a random one but last time I reinstalled the game I lost it all so wanted to keep a backed up copy_
 
+#### CSGO
+
 The autoexec lives `..\Steam\steamapps\common\Counter-Strike Global Offensive\csgo\cfg`
 
-The launch options I'm using are `-refresh 144 -tickrate 128 +fps_max 0 -novid -nojoy -fullscreen +exec autoexec.cfg`
+The launch options I'm using are `-refresh 144 -tickrate 128 +fps_max 0 -novid -nojoy nosteamcontroller -fullscreen +exec autoexec.cfg`
+
+#### TF2
+
+The autoexec lives `..\Steam\steamapps\common\Counter-Strike Global Offensive\csgo\cfg` - wrong
+
+The launch options I'm using are `-freq 144 -precachefontchars -novid -nojoy nosteamcontroller -fullscreen +exec autoexec.cfg`
 
 ## TODOs
 
