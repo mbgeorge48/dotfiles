@@ -67,10 +67,8 @@ The launch options I'm using are `-refresh 144 -tickrate 128 +fps_max 0 -novid -
 
 #### TF2
 
-The autoexec lives `..\Steam\steamapps\common\Counter-Strike Global Offensive\csgo\cfg` - wrong
+The autoexec lives `..\Steam\steamapps\common\Team Fortress 2\tf\cfg`
 
 The launch options I'm using are `-freq 144 -precachefontchars -novid -nojoy nosteamcontroller -fullscreen +exec autoexec.cfg`
 
 ## TODOs
-
-- Make a similar autoexec from CSGO but for TF2
