@@ -1,0 +1,21 @@
+
+# crab
+export ENV_FILE=etc/environments/development/env,.env
+export PROC_FILE=etc/environments/development/procfile,Procfile
+export BIN_DIRS=env/bin
+# end crab
+
+export CPPFLAGS=-I/usr/local/opt/openssl/include
+export LDFLAGS=-L/usr/local/opt/openssl/lib
+
+# Set PATH, MANPATH, etc., for Homebrew.
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+if [ -e $HOME/.dotfiles/node/nvm ]; then
+    command -v nvm >/dev/null 2>&1 && source $HOME/.dotfiles/node/nvm
+fi
+
+if [ -e $HOME/.dotfiles/python/python ]; then
+    command -v python3 > /dev/null 2>&1 && { source $HOME/.dotfiles/python/python }
+    command -v python > /dev/null 2>&1 && source $HOME/.dotfiles/python/python
+fi
