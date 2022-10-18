@@ -1,0 +1,6 @@
+# Contains specfic config for work/personal repos
+[user]
+	email = mbgeorge48@gmail.com
+	name = Matt George
+	username = mbgeorge48
+	signingkey = 22A10A080691FC53

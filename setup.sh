@@ -2,7 +2,7 @@
 
 echo "Setting up dotfiles..."
 
-# Shell
+echo "Configuring shell aliases"
 if [ -s ~/.bash_aliases ]; then
     mv ~/.bash_aliases ~/.dotfiles/archive/
 fi
@@ -11,6 +11,7 @@ if [ -s ~/.zsh_aliases ]; then
     mv ~/.zsh_aliases ~/.dotfiles/archive/
 fi
 
+echo "Configuring shell profile"
 case $SHELL in
     '/bin/zsh')
         ln -s ~/.dotfiles/shell/all_profile ~/.zprofile
@@ -32,29 +33,47 @@ case $SHELL in
 esac
 
 
-# Brew
+echo "Installing Brew"
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+echo "Installing Brew packages"
 brew bundle --file ~/.dotfiles/brew/Brewfile
 
 
-# Git
+echo "Configuring Git"
 if [ -s ~/.gitconfig ]; then
     mv ~/.gitconfig ~/.dotfiles/archive/
 fi
 ln -s ~/.dotfiles/git/gitconfig ~/.gitconfig
 
+if [[ "$1" == "work" ]]; then
+    echo "Configuring work gitconfig"
+    mkdir ~/work/
+    if [ -s ~/work/.gitconfig-work ]; then
+        mv ~/work/.gitconfig-work ~/.dotfiles/archive/
+    fi
+    ln -s ~/.dotfiles/git/gitconfig-extended ~/work/.gitconfig-work
+fi
 
-# Vim
+echo "Configuring personal gitconfig"
+mkdir ~/personal/
+if [ -s ~/personal/.gitconfig-personal ]; then
+    mv ~/personal/.gitconfig-personal ~/.dotfiles/archive/
+fi
+ln -s ~/.dotfiles/git/gitconfig-extended ~/personal/.gitconfig-personal
+
+
+echo "Configuring Vim"
 if [ -s ~/.vimrc ]; then
     mv ~/.vimrc ~/.dotfiles/archive/
 fi
 ln -s ~/.dotfiles/vim/vimrc ~/.vimrc
 
 
-# Vscode
+echo "Configuring VS Code"
 if [ -s ~/Library/Application Support/Code/User/settings.json ]; then
     mv ~/Library/Application Support/Code/User/settings.json ~/.dotfiles/archive/
 fi
 ln -s ~/.dotfiles/vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
 
+echo "Installing VS Code extensions "
 source ~/.dotfiles/vscode/extensions
