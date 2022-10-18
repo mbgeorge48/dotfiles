@@ -46,12 +46,12 @@ fi
 ln -s ~/.dotfiles/git/gitconfig ~/.gitconfig
 
 if [[ "$1" == "work" ]]; then
-    echo "Configuring work gitconfig"
+    echo "Copying gitconfig-extended into work folder"
     mkdir ~/work/
     if [ -s ~/work/.gitconfig-work ]; then
         mv ~/work/.gitconfig-work ~/.dotfiles/archive/
     fi
-    ln -s ~/.dotfiles/git/gitconfig-extended ~/work/.gitconfig-work
+    cp ~/.dotfiles/git/gitconfig-extended ~/work/.gitconfig-work
 fi
 
 echo "Configuring personal gitconfig"
