@@ -4,3 +4,6 @@
 	name = Matt George
 	username = mbgeorge48
 	signingkey = E95DC4679FB86181
+
+[commit]
+	gpgsign = true
