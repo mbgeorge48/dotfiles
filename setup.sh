@@ -3,10 +3,16 @@
 echo "Setting up dotfiles..."
 
 echo "Configuring shell aliases"
+if [ -s ~/.bash_profile ]; then
+    mv ~/.bash_profile ~/.dotfiles/archive/
+fi
 if [ -s ~/.bash_aliases ]; then
     mv ~/.bash_aliases ~/.dotfiles/archive/
 fi
 
+if [ -s ~/.zprofile ]; then
+    mv ~/.zprofile ~/.dotfiles/archive/
+fi
 if [ -s ~/.zsh_aliases ]; then
     mv ~/.zsh_aliases ~/.dotfiles/archive/
 fi
@@ -16,12 +22,15 @@ case $SHELL in
     '/bin/zsh')
         ln -s ~/.dotfiles/shell/all_profile ~/.zprofile
         ln -s ~/.dotfiles/shell/zsh_aliases ~/.zsh_aliases
+        if ! grep -q "source ~/.zprofile" ~/.zshrc; then
+            echo -e "source ~/.zprofile\n" >> ~/.zshrc
+        fi
         if ! grep -q "source ~/.zsh_aliases" ~/.zshrc; then
             echo -e "source ~/.zsh_aliases\n" >> ~/.zshrc
         fi
     ;;
     '/bin/bash')
-    ln -s ~/.dotfiles/shell/all_profile ~/.bash_profile
+        ln -s ~/.dotfiles/shell/all_profile ~/.bash_profile
         if ! grep -q "source ~/.bash_profile" ~/.bashrc; then
             echo -e "source ~/.bash_profile\n" >> ~/.bashrc
         fi
@@ -32,11 +41,15 @@ case $SHELL in
     ;;
 esac
 
-
-echo "Installing Brew"
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-echo "Installing Brew packages"
-brew bundle --file ~/.dotfiles/brew/Brewfile
+brew help > /dev/null
+if [ $? -ne 0 ]; then
+    echo "Installing Brew"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    echo "Installing Brew packages"
+    brew bundle --file ~/.dotfiles/brew/Brewfile
+else
+    echo "Skipping Brew, looks like it's already installed"
+fi
 
 
 echo "Configuring Git"
@@ -47,7 +60,7 @@ ln -s ~/.dotfiles/git/gitconfig ~/.gitconfig
 
 if [[ "$1" == "work" ]]; then
     echo "Copying gitconfig-extended into work folder"
-    mkdir ~/work/
+    mkdir -p ~/work/
     if [ -s ~/work/.gitconfig-work ]; then
         mv ~/work/.gitconfig-work ~/.dotfiles/archive/
     fi
@@ -55,7 +68,7 @@ if [[ "$1" == "work" ]]; then
 fi
 
 echo "Configuring personal gitconfig"
-mkdir ~/personal/
+mkdir -p ~/personal/
 if [ -s ~/personal/.gitconfig-personal ]; then
     mv ~/personal/.gitconfig-personal ~/.dotfiles/archive/
 fi
@@ -75,5 +88,5 @@ if [ -s ~/Library/Application Support/Code/User/settings.json ]; then
 fi
 ln -s ~/.dotfiles/vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
 
-echo "Installing VS Code extensions "
+echo "Installing VS Code extensions"
 source ~/.dotfiles/vscode/extensions
