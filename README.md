@@ -39,11 +39,12 @@ ln -s ~/.dotfiles/shell/zsh_aliases ~/.zsh_aliases
 ln -s ~/.dotfiles/git/gitconfig ~/.gitconfig
 ```
 
-Or you can run the setup script which will move existing files into an archive directory and create the symlinks in their place
+Or you can run the setup script which will move existing files into an archive directory and create the symlinks in their place.
 
 ```zsh
 bash ~/.dotfiles/setup.sh
 ```
+
 If you're setting up a work machine you can add `work` as an arg in the `setup.sh` script, like so `bash ~/.dotfiles/setup.sh work`
 
 ## Specifics
