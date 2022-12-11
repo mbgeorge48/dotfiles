@@ -44,6 +44,7 @@ Or you can run the setup script which will move existing files into an archive d
 ```zsh
 bash ~/.dotfiles/setup.sh
 ```
+If you're setting up a work machine you can add `work` as an arg in the `setup.sh` script, like so `bash ~/.dotfiles/setup.sh work`
 
 ## Specifics
 
