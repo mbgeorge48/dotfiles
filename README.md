@@ -55,6 +55,10 @@ For things not included in `setup.sh`
 
 [Follow this guide to setup your GPG key](https://docs.github.com/en/authentication/managing-commit-signature-verification/adding-a-gpg-key-to-your-github-account)
 
+After Brew installs Pinentry run `which pinentry-mac` to get the path
+Then add that path to `~/.gnupg/gpg-agent.conf`
+Restart `gpgconf --kill gpg-agent`
+
 [Follow this guide to setup you SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
 
 ### Games
