@@ -176,3 +176,15 @@ defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
 ```bash
 defaults write NSGlobalDomain WebAutomaticSpellingCorrectionEnabled -bool false
 ```
+
+---
+
+Set the startup and default Terminal to Pro
+
+```bash
+defaults write com.apple.terminal "Startup Window Settings" "Pro"
+```
+
+```bash
+defaults write com.apple.terminal "Default Window Settings" "Pro"
+```
