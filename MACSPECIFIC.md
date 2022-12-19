@@ -154,6 +154,15 @@ defaults write com.apple.screencapture type jpg
 
 ---
 
+Change the screenshot save location to `~/Pictures/screenshots`
+
+```bash
+mkdir ~/Pictures/screenshots
+defaults write com.apple.screencapture location ~/Pictures/screenshots
+```
+
+---
+
 Turn off the Mac autocorrect stuff
 
 ```bash
