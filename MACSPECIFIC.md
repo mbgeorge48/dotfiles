@@ -45,6 +45,14 @@ defaults write com.apple.dock tilesize -int 40
 
 ---
 
+Enable Magnification
+
+```bash
+defaults write com.apple.dock magnification -bool true
+```
+
+---
+
 Make the Dock icons magnify to size 48 (Don't go higher than 512)
 
 ```bash
@@ -118,6 +126,14 @@ Show the path bar in the finder
 
 ```bash
 defaults write com.apple.finder ShowPathbar -bool true
+```
+
+---
+
+Show the side bar in the finder
+
+```bash
+defaults write com.apple.finder ShowSidebar -bool true
 ```
 
 ---
