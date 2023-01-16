@@ -20,7 +20,6 @@ code --install-extension ms-toolsai.jupyter-renderers
 code --install-extension ms-vscode-remote.remote-containers
 code --install-extension ms-vscode-remote.remote-wsl
 code --install-extension ms-vsliveshare.vsliveshare
-code --install-extension msjsdiag.vscode-react-native
 code --install-extension naumovs.color-highlight
 code --install-extension netcorext.uuid-generator
 code --install-extension oderwat.indent-rainbow
