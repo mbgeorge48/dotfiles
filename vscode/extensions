@@ -1,6 +1,5 @@
 #!/bin/sh
 
-code --install-extension 2gua.rainbow-brackets
 code --install-extension batisteo.vscode-django
 code --install-extension bierner.color-info
 code --install-extension bradlc.vscode-tailwindcss
