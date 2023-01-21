@@ -16,7 +16,11 @@ esac
 function colour_echo () {
     COLOUR='\033[0;35m'
     ENDCOLOUR='\033[0m'
-    echo "${COLOUR}$1${ENDCOLOUR}"
+    if [[ "$rcfile" == "zshrc" ]]; then
+        echo "${COLOUR}$1${ENDCOLOUR}"
+    else
+        echo "$1"
+    fi
 }
 
 function shell_config_setup () {
@@ -40,11 +44,13 @@ function shell_config_setup () {
     ln -s ~/.dotfiles/shell/$aliases ~/.$aliases &> /dev/null
 
     if ! grep -q "source ~/.$profile" ~/.$rcfile; then
-        echo "source ~/.$profile\n" >> ~/.$rcfile
+        echo "" >> ~/.$rcfile
+        echo "source ~/.$profile" >> ~/.$rcfile
     fi
 
     if ! grep -q "source ~/.$aliases" ~/.$rcfile; then
-        echo  "source ~/.$aliases\n" >> ~/.$rcfile
+        echo "" >> ~/.$rcfile
+        echo  "source ~/.$aliases" >> ~/.$rcfile
     fi
 }
 
@@ -55,7 +61,8 @@ function create_work_aliases () {
         touch ~/$filename
     fi
     if ! grep -q "source ~/$filename" ~/.$rcfile; then
-        echo  "source ~/$filename\n" >> ~/.$rcfile
+        echo "" >> ~/.$rcfile
+        echo  "source ~/$filename" >> ~/.$rcfile
     fi
 }
 
@@ -132,11 +139,11 @@ function gpg_ssh_setup () {
 
 colour_echo "Setting up dotfiles..."
 shell_config_setup
-brew_setup
+#brew_setup
 git_setup
 personal_git_setup
 vim_setup
-vscode_setup
+#vscode_setup
 gpg_ssh_setup
 colour_echo "Setup Complete!"
 
