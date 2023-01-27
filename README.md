@@ -55,11 +55,28 @@ For things not included in `setup.sh`
 
 [Follow this guide to setup your GPG key](https://docs.github.com/en/authentication/managing-commit-signature-verification/adding-a-gpg-key-to-your-github-account)
 
+#### Importing GPG keys
+
+Once you have the keys on your machine simply run
+
+```bash
+gpg --import public.key
+gpg --import private.key
+```
+
 After Brew installs Pinentry run `which pinentry-mac` to get the path
 Then add that path to `~/.gnupg/gpg-agent.conf`
 Restart `gpgconf --kill gpg-agent`
 
+#### Importing SSH keys
+
+...
+
 [Follow this guide to setup you SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
+
+### Change Remote from HTTPs to SSH
+
+`git remote set-url origin git@github.com:mbgeorge/dotfiles.git`
 
 ### Games
 
