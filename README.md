@@ -76,7 +76,7 @@ Restart `gpgconf --kill gpg-agent`
 
 ### Change Remote from HTTPs to SSH
 
-`git remote set-url origin git@github.com:mbgeorge/dotfiles.git`
+`git remote set-url origin git@github.com:mbgeorge48/dotfiles.git`
 
 ### Games
 
