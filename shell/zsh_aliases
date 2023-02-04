@@ -1,5 +1,3 @@
-#!/bin/zsh
-
 alias ls='ls -FG'
 alias ll='ls -ahl'
 
@@ -10,8 +8,6 @@ alias cpv='rsync -ah --info=progress2'
 autoload -Uz vcs_info
 precmd() { vcs_info }
 zstyle ':vcs_info:git:*' formats ' [%b]'
-
-
 
 
 autoload -U colors && colors
