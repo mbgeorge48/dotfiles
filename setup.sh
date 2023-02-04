@@ -38,10 +38,16 @@ function shell_config_setup() {
     if [ -s ~/.zsh_aliases ]; then
         mv ~/.zsh_aliases ~/.dotfiles/archive/ &>/dev/null
     fi
+    if [ -s ~/.zsh_profile ]; then
+        mv ~/.zsh_profile ~/.dotfiles/archive/ &>/dev/null
+    fi
 
     colour_echo "Configuring shell profile"
     ln -s ~/.dotfiles/shell/all_profile ~/.$profile &>/dev/null
     ln -s ~/.dotfiles/shell/$aliases ~/.$aliases &>/dev/null
+    if [[ "$rcfile" == "zshrc" ]]; then
+        ln -s ~/.dotfiles/shell/zsh_profile ~/.zsh_profile &>/dev/null
+    fi
 
     if ! grep -q "source ~/.$profile" ~/.$rcfile; then
         echo "" >>~/.$rcfile
@@ -139,11 +145,15 @@ function gpg_ssh_setup() {
 
 colour_echo "Setting up dotfiles..."
 shell_config_setup
-#brew_setup
+if [[ "$rcfile" == "zshrc" ]]; then
+    brew_setup
+fi
 git_setup
 personal_git_setup
 vim_setup
-#vscode_setup
+if [[ "$rcfile" == "zshrc" ]]; then
+    vscode_setup
+fi
 gpg_ssh_setup
 colour_echo "Setup Complete!"
 

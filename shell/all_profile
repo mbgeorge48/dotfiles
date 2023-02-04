@@ -1,4 +1,3 @@
-
 # crab
 export ENV_FILE=etc/environments/development/env,.env
 export PROC_FILE=etc/environments/development/procfile,Procfile
@@ -12,12 +11,15 @@ export LDFLAGS=-L/usr/local/opt/openssl/lib
 # GPG
 export GPG_TTY=$(tty)
 
+if [ -e $HOME/.zshrc ]; then
+    source ~/.zsh_profile
+fi
+
 if [ -e $HOME/.dotfiles/node/nvm ]; then
     command -v nvm >/dev/null 2>&1 && source $HOME/.dotfiles/node/nvm
 fi
 
 if [ -e $HOME/.dotfiles/python/python ]; then
-    command -v python3 > /dev/null 2>&1 && source $HOME/.dotfiles/python/python
-    command -v python > /dev/null 2>&1 && source $HOME/.dotfiles/python/python
+    command -v python3 >/dev/null 2>&1 && source $HOME/.dotfiles/python/python
+    command -v python >/dev/null 2>&1 && source $HOME/.dotfiles/python/python
 fi
-
