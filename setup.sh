@@ -113,7 +113,10 @@ function personal_git_setup() {
         mv ~/personal/.gitconfig-personal ~/.dotfiles/archive/ &>/dev/null
     fi
     ln -s ~/.dotfiles/git/gitconfig-extended ~/personal/.gitconfig-personal
-    ln -s ~/.dotfiles ~/personal/dotfiles
+
+    if [ ! -s ~/personal/dotfiles ]; then
+        ln -s ~/.dotfiles ~/personal/dotfiles
+    fi
 }
 
 function vim_setup() {
