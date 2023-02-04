@@ -5,5 +5,5 @@ if [ -s /opt/homebrew/bin/brew ]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
-Git Autocomplete
+# Git Autocomplete
 autoload -Uz compinit && compinit

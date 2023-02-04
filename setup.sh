@@ -77,10 +77,6 @@ function brew_setup() {
     if [ $? -ne 0 ]; then
         colour_echo "Installing Brew"
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-        if ! grep -q "# Set PATH, MANPATH, etc., for Homebrew." ~/.$profile; then
-            echo '# Set PATH, MANPATH, etc., for Homebrew.' >>~/.$profile
-            echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >>~/.$profile
-        fi
         eval "$(/opt/homebrew/bin/brew shellenv)"
         colour_echo "Finished installing Brew, installing Brew packages"
         brew bundle --file ~/.dotfiles/brew/Brewfile
