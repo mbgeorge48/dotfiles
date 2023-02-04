@@ -38,15 +38,15 @@ function shell_config_setup() {
     if [ -s ~/.zsh_aliases ]; then
         mv ~/.zsh_aliases ~/.dotfiles/archive/ &>/dev/null
     fi
-    if [ -s ~/.zsh_profile ]; then
-        mv ~/.zsh_profile ~/.dotfiles/archive/ &>/dev/null
+    if [ -s ~/.zsh_extras ]; then
+        mv ~/.zsh_extras ~/.dotfiles/archive/ &>/dev/null
     fi
 
     colour_echo "Configuring shell profile"
     ln -s ~/.dotfiles/shell/all_profile ~/.$profile &>/dev/null
     ln -s ~/.dotfiles/shell/$aliases ~/.$aliases &>/dev/null
     if [[ "$rcfile" == "zshrc" ]]; then
-        ln -s ~/.dotfiles/shell/zsh_profile ~/.zsh_profile &>/dev/null
+        ln -s ~/.dotfiles/shell/zsh_extras ~/.zsh_extras &>/dev/null
     fi
 
     if ! grep -q "source ~/.$profile" ~/.$rcfile; then
