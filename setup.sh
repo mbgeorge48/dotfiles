@@ -47,12 +47,12 @@ function shell_config_setup() {
     ln -s ~/.dotfiles/shell/$aliases ~/.$aliases &>/dev/null
     if [[ "$rcfile" == "zshrc" ]]; then
         ln -s ~/.dotfiles/shell/zsh_extras ~/.zsh_extras &>/dev/null
+        if ! grep -q "source ~/.$profile" ~/.$rcfile; then
+            echo "" >>~/.$rcfile
+            echo "source ~/.$profile" >>~/.$rcfile
+        fi
     fi
 
-    if ! grep -q "source ~/.$profile" ~/.$rcfile; then
-        echo "" >>~/.$rcfile
-        echo "source ~/.$profile" >>~/.$rcfile
-    fi
 
     if ! grep -q "source ~/.$aliases" ~/.$rcfile; then
         echo "" >>~/.$rcfile
