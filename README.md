@@ -69,8 +69,14 @@ Then add that path to `~/.gnupg/gpg-agent.conf`
 Restart `gpgconf --kill gpg-agent`
 
 #### SSH keys
+If you're reusing a key...
 
-...
+```bash
+vim ~/.ssh/id_ed25519
+<copy in your private key>
+write and quit
+chmod 600 ~/.ssh/id_ed25519
+```
 
 [Follow this guide to setup you SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
 
