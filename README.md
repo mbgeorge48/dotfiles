@@ -68,6 +68,12 @@ After Brew installs Pinentry run `which pinentry-mac` to get the path
 Then add that path to `~/.gnupg/gpg-agent.conf`
 Restart `gpgconf --kill gpg-agent`
 
+If the GPG key is throwning an error you can run this to help debug it
+
+```bash
+echo "test" | gpg --clearsign
+```
+
 #### SSH keys
 If you're reusing a key...
 

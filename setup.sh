@@ -81,8 +81,10 @@ function brew_setup() {
         colour_echo "Finished installing Brew, installing Brew packages"
         brew bundle --file ~/.dotfiles/brew/Brewfile
     else
-        colour_echo "Skipping Brew, looks like it's already installed"
+        colour_echo "Skipping Brew, looks like it's already installed,
+        installing packages now"
     fi
+    brew bundle --file ~/.dotfiles/brew/Brewfile
 }
 
 function git_setup() {
