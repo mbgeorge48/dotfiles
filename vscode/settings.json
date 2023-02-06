@@ -49,6 +49,7 @@
     "git.autofetch": true,
     "git.confirmSync": false,
     "git.enableSmartCommit": false,
+    "githubPullRequests.terminalLinksHandler": "github",
     "html.format.indentInnerHtml": true,
     "html.format.preserveNewLines": false,
     "python.defaultInterpreterPath": "${workspaceFolder}/.env/bin/python",
