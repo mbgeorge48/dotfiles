@@ -47,16 +47,15 @@ function shell_config_setup() {
     ln -s ~/.dotfiles/shell/$aliases ~/.$aliases &>/dev/null
     if [[ "$rcfile" == "zshrc" ]]; then
         ln -s ~/.dotfiles/shell/zsh_extras ~/.zsh_extras &>/dev/null
-        if ! grep -q "source ~/.$profile" ~/.$rcfile; then
+        if ! grep -q ". ~/.$profile" ~/.$rcfile; then
             echo "" >>~/.$rcfile
-            echo "source ~/.$profile" >>~/.$rcfile
+            echo ". ~/.$profile" >>~/.$rcfile
         fi
     fi
 
-
-    if ! grep -q "source ~/.$aliases" ~/.$rcfile; then
+    if ! grep -q ". ~/.$aliases" ~/.$rcfile; then
         echo "" >>~/.$rcfile
-        echo "source ~/.$aliases" >>~/.$rcfile
+        echo ". ~/.$aliases" >>~/.$rcfile
     fi
 }
 
@@ -66,9 +65,9 @@ function create_work_aliases() {
     if [ -s ~/$filename ]; then
         touch ~/$filename
     fi
-    if ! grep -q "source ~/$filename" ~/.$rcfile; then
+    if ! grep -q ". ~/$filename" ~/.$rcfile; then
         echo "" >>~/.$rcfile
-        echo "source ~/$filename" >>~/.$rcfile
+        echo ". ~/$filename" >>~/.$rcfile
     fi
 }
 
@@ -133,7 +132,7 @@ function vscode_setup() {
     ln -s ~/.dotfiles/vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
 
     colour_echo "Installing VS Code extensions"
-    source ~/.dotfiles/vscode/extensions
+    . ~/.dotfiles/vscode/extensions
 }
 
 # Create ssh and gpg foldets
