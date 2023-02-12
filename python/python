@@ -4,7 +4,9 @@ function set_versions_python {
         pyenv exec python -m venv env
 
         env/bin/pip install -q --upgrade pip
-        env/bin/pip install -q -r requirements.txt
+        if [ -s "requirements.txt" ]; then
+            env/bin/pip install -q -r requirements.txt
+        fi
     fi
 }
 set_versions_python
