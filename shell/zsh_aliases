@@ -1,13 +1,3 @@
-alias ls='ls -FG'
-alias ll='ls -ahl'
-
-alias gh='history | grep'
-
-alias cpv='rsync -ah --info=progress2'
-
-alias current_branch='git rev-parse --abbrev-ref HEAD'
-
-
 autoload -Uz vcs_info
 precmd() { vcs_info }
 zstyle ':vcs_info:git:*' formats ' [%b]'

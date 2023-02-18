@@ -27,3 +27,11 @@ if [ -e $HOME/.dotfiles/python/python ]; then
     command -v python3 >/dev/null 2>&1 && source $HOME/.dotfiles/python/python
     command -v python >/dev/null 2>&1 && source $HOME/.dotfiles/python/python
 fi
+
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
+alias ls='ls -FG'
+alias ll='ls -ahl'
+alias gh='history | grep'
+alias current_branch='git rev-parse --abbrev-ref HEAD'
