@@ -21,7 +21,8 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[python]": {
-        "editor.defaultFormatter": "ms-python.python"
+        "editor.defaultFormatter": "ms-python.python",
+        "editor.formatOnType": true
     },
     "[typescript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
