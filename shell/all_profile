@@ -1,8 +1,4 @@
-# crab
-export ENV_FILE=etc/environments/development/env,.env
-export PROC_FILE=etc/environments/development/procfile,Procfile
-export BIN_DIRS=env/bin
-# end crab
+#!/bin/sh
 
 # Brew
 export CPPFLAGS=-I/usr/local/opt/openssl/include
@@ -20,7 +16,7 @@ if [ -e $HOME/.bashrc ]; then
 fi
 
 if [ -e $HOME/.dotfiles/node/nvm ]; then
-    command -v nvm >/dev/null 2>&1 && . $HOME/.dotfiles/node/nvm
+    . $HOME/.dotfiles/node/nvm
 fi
 
 if [ -e $HOME/.dotfiles/python/python ]; then
@@ -28,10 +24,23 @@ if [ -e $HOME/.dotfiles/python/python ]; then
     command -v python >/dev/null 2>&1 && source $HOME/.dotfiles/python/python
 fi
 
+brew list android-studio &>/dev/null
+if [ $? -eq 0 ]; then
+    export ANDROID_HOME=$HOME/Library/Android/sdk
+    export PATH=$ANDROID_HOME/platform-tools:$PATH
+    export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jbr/Contents/Home
+fi
+
 export VISUAL=vim
 export EDITOR="$VISUAL"
+
+cd_list_dir () {
+    cd $1
+    ls
+}
 
 alias ls='ls -FG'
 alias ll='ls -ahl'
 alias gh='history | grep'
 alias current_branch='git rev-parse --abbrev-ref HEAD'
+alias cdl='cd_list_dir'
