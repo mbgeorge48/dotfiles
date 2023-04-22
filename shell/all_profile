@@ -34,7 +34,7 @@ fi
 export VISUAL=vim
 export EDITOR="$VISUAL"
 
-cd_list_dir () {
+cd_list_dir() {
     cd $1
     ls
 }

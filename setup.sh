@@ -17,7 +17,7 @@ function colour_echo() {
     COLOUR='\033[0;35m'
     ENDCOLOUR='\033[0m'
     if [[ "$rcfile" == "zshrc" ]]; then
-        echo "${COLOUR}$1${ENDCOLOUR}"
+        echo -e "${COLOUR}$1${ENDCOLOUR}"
     else
         echo "$1"
     fi
@@ -83,7 +83,6 @@ function brew_setup() {
         colour_echo "Skipping Brew, looks like it's already installed,
         installing packages now"
     fi
-    brew bundle --file ~/.dotfiles/brew/Brewfile
 }
 
 function git_setup() {
