@@ -2,7 +2,7 @@
 
 case $SHELL in
 '/bin/zsh')
-    profile="zprofile"
+    profile="zsh_profile"
     aliases="zsh_aliases"
     rcfile="zshrc"
     ;;
@@ -25,6 +25,9 @@ function colour_echo() {
 
 function shell_config_setup() {
     colour_echo "Backing up shell config"
+    if [ -s ~/.bashrc ]; then
+        mv ~/.bashrc ~/.dotfiles/archive/ &>/dev/null
+    fi
     if [ -s ~/.bash_profile ]; then
         mv ~/.bash_profile ~/.dotfiles/archive/ &>/dev/null
     fi
@@ -32,6 +35,9 @@ function shell_config_setup() {
         mv ~/.bash_aliases ~/.dotfiles/archive/ &>/dev/null
     fi
 
+    if [ -s ~/.zsh_profile ]; then
+        mv ~/.zsh_profile ~/.dotfiles/archive/ &>/dev/null
+    fi
     if [ -s ~/.zprofile ]; then
         mv ~/.zprofile ~/.dotfiles/archive/ &>/dev/null
     fi

@@ -4,12 +4,13 @@ if [ -e $HOME/.nvm ]; then
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 fi
 
-function set_versions_nvm {
-    [ -s ".nvmrc" ] && {
+function set_versions_nvm() {
+    if [ -s ".nvmrc" ]; then
         nvm use --silent || nvm install
         echo "Node.js $(node --version)"
-    }
+    fi
 }
+
 set_versions_nvm
 function chpwd {
     set_versions_nvm

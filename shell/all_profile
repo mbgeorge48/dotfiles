@@ -8,11 +8,13 @@ export LDFLAGS=-L/usr/local/opt/openssl/lib
 export GPG_TTY=$(tty)
 
 if [ -e $HOME/.zshrc ]; then
+    . $HOME/.zsh_aliases
     . $HOME/.zsh_extras
 fi
 
 if [ -e $HOME/.bashrc ]; then
-    . $HOME/.bashrc
+    . $HOME/.bash_aliases
+    . $HOME/.bash_profile
 fi
 
 if [ -e $HOME/.dotfiles/node/nvm ]; then
