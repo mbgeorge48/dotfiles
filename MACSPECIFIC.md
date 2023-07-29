@@ -93,7 +93,7 @@ defaults read com.apple.finder > ~/.dotfiles/archive/finder-defaults.txt
 Show hidden files
 
 ```bash
-defaults write com.apple.finder AppleShowAllFiles -bool true
+defaults write com.apple.finder AppleShowAllFiles -bool false
 ```
 
 ---
@@ -203,4 +203,16 @@ defaults write com.apple.terminal "Startup Window Settings" "Pro"
 
 ```bash
 defaults write com.apple.terminal "Default Window Settings" "Pro"
+```
+
+---
+
+Set the keyboard repeat rate and delay until repeat to the fastest/shortest settings _Not fully tested yet_
+
+```bash
+defaults write -g KeyRepeat -int 15
+```
+
+```bash
+defaults write -g InitialKeyRepeat -int 2
 ```
