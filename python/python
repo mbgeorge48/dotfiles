@@ -1,4 +1,9 @@
-function set_versions_python {
+if [ -e $HOME/.pyenv ]; then
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+fi
+
+function set_versions_python() {
     if [ -s ".python-version" ]; then
         pyenv install --skip-existing
         pyenv exec python -m venv .env
@@ -9,13 +14,8 @@ function set_versions_python {
         fi
     fi
 }
+
 set_versions_python
 function chpwd {
     set_versions_python
 }
-
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
