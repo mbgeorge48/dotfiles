@@ -1,22 +1,14 @@
 #!/bin/sh
 
-case $SHELL in
-'/bin/zsh')
-    profile="zsh_profile"
-    aliases="zsh_aliases"
-    rcfile="zshrc"
-    ;;
-'/bin/bash')
-    profile="bash_profile"
-    aliases="bash_aliases"
-    rcfile="bashrc"
-    ;;
-esac
+zsh_entry_point="zprofile"
+bash_entry_point="bash_profile"
+zsh_prompt="zsh_prompt"
+bash_prompt="bash_prompt"
 
 function colour_echo() {
     COLOUR='\033[0;35m'
     ENDCOLOUR='\033[0m'
-    if [[ "$rcfile" == "zshrc" ]]; then
+    if [[ "$entry_point" == "zprofile" ]]; then
         echo -e "${COLOUR}$1${ENDCOLOUR}"
     else
         echo "$1"
@@ -25,55 +17,34 @@ function colour_echo() {
 
 function shell_config_setup() {
     colour_echo "Backing up shell config"
-    if [ -s ~/.bashrc ]; then
-        mv ~/.bashrc ~/.dotfiles/archive/ &>/dev/null
+    if [ -s ~/.$zsh_entry_point ]; then
+        mv ~/.$zsh_entry_point ~/.dotfiles/archive/ &>/dev/null
     fi
-    if [ -s ~/.bash_profile ]; then
-        mv ~/.bash_profile ~/.dotfiles/archive/ &>/dev/null
+    if [ -s ~/.$bash_entry_point ]; then
+        mv ~/.$bash_entry_point ~/.dotfiles/archive/ &>/dev/null
     fi
-    if [ -s ~/.bash_aliases ]; then
-        mv ~/.bash_aliases ~/.dotfiles/archive/ &>/dev/null
+    if [ -s ~/.$zsh_prompt ]; then
+        mv ~/.$zsh_prompt ~/.dotfiles/archive/ &>/dev/null
     fi
-
-    if [ -s ~/.zsh_profile ]; then
-        mv ~/.zsh_profile ~/.dotfiles/archive/ &>/dev/null
-    fi
-    if [ -s ~/.zprofile ]; then
-        mv ~/.zprofile ~/.dotfiles/archive/ &>/dev/null
-    fi
-    if [ -s ~/.zsh_aliases ]; then
-        mv ~/.zsh_aliases ~/.dotfiles/archive/ &>/dev/null
-    fi
-    if [ -s ~/.zsh_extras ]; then
-        mv ~/.zsh_extras ~/.dotfiles/archive/ &>/dev/null
+    if [ -s ~/.$bash_prompt ]; then
+        mv ~/.$bash_prompt ~/.dotfiles/archive/ &>/dev/null
     fi
 
     colour_echo "Configuring shell profile"
-    ln -s ~/.dotfiles/shell/all_profile ~/.$profile &>/dev/null
-    ln -s ~/.dotfiles/shell/$aliases ~/.$aliases &>/dev/null
-    if [[ "$rcfile" == "zshrc" ]]; then
+    ln -s ~/.dotfiles/shell/$zsh_prompt ~/.$zsh_prompt &>/dev/null
+    ln -s ~/.dotfiles/shell/$bash_prompt ~/.$bash_prompt &>/dev/null
+    ln -s ~/.dotfiles/shell/all_profile ~/.$zsh_entry_point &>/dev/null
+    ln -s ~/.dotfiles/shell/all_profile ~/.$bash_entry_point &>/dev/null
+    if [[ $SHELL == "/bin/zsh" ]]; then
         ln -s ~/.dotfiles/shell/zsh_extras ~/.zsh_extras &>/dev/null
-        if ! grep -q ". ~/.$profile" ~/.$rcfile; then
-            echo "" >>~/.$rcfile
-            echo ". ~/.$profile" >>~/.$rcfile
-        fi
-    fi
-
-    if ! grep -q ". ~/.$aliases" ~/.$rcfile; then
-        echo "" >>~/.$rcfile
-        echo ". ~/.$aliases" >>~/.$rcfile
     fi
 }
 
-function create_work_aliases() {
-    colour_echo "Creating Work Aliases file"
-    filename=".work_aliases"
-    if [ -s ~/$filename ]; then
-        touch ~/$filename
-    fi
-    if ! grep -q ". ~/$filename" ~/.$rcfile; then
-        echo "" >>~/.$rcfile
-        echo ". ~/$filename" >>~/.$rcfile
+function create_custom_aliases() {
+    colour_echo "Creating Custom Aliases file"
+    custom_aliases=".custom_aliases"
+    if [ -s ~/$custom_aliases ]; then
+        touch ~/$custom_aliases
     fi
 }
 
@@ -150,19 +121,19 @@ function gpg_ssh_setup() {
 
 colour_echo "Setting up dotfiles..."
 shell_config_setup
-if [[ "$rcfile" == "zshrc" ]]; then
+if [[ $SHELL == "/bin/zsh" ]]; then
     brew_setup
 fi
 git_setup
 personal_git_setup
 vim_setup
-if [[ "$rcfile" == "zshrc" ]]; then
+if [[ $SHELL == "/bin/zsh" ]]; then
     vscode_setup
 fi
 gpg_ssh_setup
 colour_echo "Setup Complete!"
 
-if [[ "$1" == "work" ]]; then
-    create_work_aliases
+if [[ "$1" == "custom" ]]; then
+    create_custom_aliases
     work_git_setup
 fi
