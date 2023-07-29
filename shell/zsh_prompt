@@ -1,0 +1,18 @@
+#!/bin/zsh
+
+autoload -Uz vcs_info
+precmd() { vcs_info }
+zstyle ':vcs_info:git:*' formats ' [%b]'
+autoload -U colors && colors
+
+setopt PROMPT_SUBST
+command_result='%(?.%F⚡️ %f.%F🌧  %f)'
+user='%F{cyan}%n%f'
+host='%F{red}%m:%f'
+current_path='%F{magenta}${PWD/#$HOME/~}%f'
+current_branch='%F{green}${vcs_info_msg_0_}%f'
+suffix='%F{yellow}\$%f'
+
+
+export PS1="${command_result}${user} => ${host}${current_path}${current_branch} ${suffix} "
+export PS2='=> '
