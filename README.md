@@ -6,13 +6,13 @@ _Haven't really tested this in WSL and the setup script won't work in regular Wi
 
 1. Install Apple's Command Line Tools, which are prerequisites for Git and Homebrew.
 
-```zsh
+```sh
 xcode-select --install
 ```
 
 2. Clone repo into new hidden directory.
 
-```zsh
+```sh
 # Use SSH (if set up)...
 git clone git@github.com:mbgeorge48/dotfiles.git ~/.dotfiles
 
@@ -20,28 +20,9 @@ git clone git@github.com:mbgeorge48/dotfiles.git ~/.dotfiles
 git clone https://github.com/mbgeorge48/dotfiles.git ~/.dotfiles
 ```
 
-4. Install Homebrew, followed by the software listed in the Brewfile.
+3. Run the setup script which will do most of the setting up for you
 
-```zsh
-# These could also be in an install script.
-
-# Install Homebrew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-# Then pass in the Brewfile location...
-brew bundle --file ~/.dotfiles/brew/Brewfile
-```
-
-4. You can manually create symlinks in the Home directory to the real files in the repo. e.g.
-
-```zsh
-ln -s ~/.dotfiles/shell/zsh_aliases ~/.zsh_aliases
-ln -s ~/.dotfiles/git/gitconfig ~/.gitconfig
-```
-
-Or you can run the setup script which will move existing files into an archive directory and create the symlinks in their place.
-
-```zsh
+```sh
 bash ~/.dotfiles/setup.sh
 ```
 
@@ -70,14 +51,15 @@ Restart `gpgconf --kill gpg-agent`
 
 If the GPG key is throwning an error you can run this to help debug it
 
-```bash
+```sh
 echo "test" | gpg --clearsign
 ```
 
 #### SSH keys
+
 If you're reusing a key...
 
-```bash
+```sh
 vim ~/.ssh/id_ed25519
 <copy in your private key>
 write and quit
@@ -88,7 +70,7 @@ chmod 600 ~/.ssh/id_ed25519
 
 Test your ssh connection to GitHub with
 
-```bash
+```sh
 ssh -T git@github.com
 ```
 
