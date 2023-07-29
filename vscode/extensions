@@ -1,10 +1,8 @@
-#!/bin/sh
-
 code --install-extension adpyke.codesnap
 code --install-extension batisteo.vscode-django
 code --install-extension bierner.color-info
 code --install-extension bradlc.vscode-tailwindcss
-code --install-extension ChakrounAnas.turbo-console-log
+code --install-extension Catppuccin.catppuccin-vsc
 code --install-extension dbaeumer.vscode-eslint
 code --install-extension eamodio.gitlens
 code --install-extension EditorConfig.EditorConfig
@@ -14,7 +12,10 @@ code --install-extension firsttris.vscode-jest-runner
 code --install-extension formulahendry.auto-rename-tag
 code --install-extension heybourn.headwind
 code --install-extension liviuschera.noctis
+code --install-extension mechatroner.rainbow-csv
 code --install-extension ms-azuretools.vscode-docker
+code --install-extension ms-python.black-formatter
+code --install-extension ms-python.isort
 code --install-extension ms-python.python
 code --install-extension ms-python.vscode-pylance
 code --install-extension ms-toolsai.jupyter
@@ -31,4 +32,5 @@ code --install-extension shardulm94.trailing-spaces
 code --install-extension shd101wyy.markdown-preview-enhanced
 code --install-extension tomoki1207.vscode-input-sequence
 code --install-extension wix.vscode-import-cost
+code --install-extension yoavbls.pretty-ts-errors
 code --install-extension yzhang.markdown-all-in-one
