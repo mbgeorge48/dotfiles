@@ -96,7 +96,7 @@ The launch options I'm using are `-freq 144 -precachefontchars -novid -nojoy nos
 
 ## TODOs
 
-Debain guide to setting up Pyenv
+Debain guide to setting up Pyenv and Node
 PS1 being a bit flaky on bash
 gpg caching in debian
 Update ssh steps
