@@ -52,7 +52,8 @@ function what_phone_model_is_this(){
 alias set_nvm='source $HOME/.dotfiles/node/nvm'
 alias set_python='source $HOME/.dotfiles/python/python'
 
-alias ls='ls -FG'
+alias grep='grep --color=auto'
+alias ls='ls -FG --color=auto'
 alias ll='ls -ahl'
 alias grep_history='history | grep'
 alias current_branch='git rev-parse --abbrev-ref HEAD'
