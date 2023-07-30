@@ -95,3 +95,8 @@ The autoexec lives `..\Steam\steamapps\common\Team Fortress 2\tf\cfg`
 The launch options I'm using are `-freq 144 -precachefontchars -novid -nojoy nosteamcontroller -fullscreen +exec autoexec.cfg`
 
 ## TODOs
+
+Debain guide to setting up Pyenv
+PS1 being a bit flaky on bash
+gpg caching in debian
+Update ssh steps
