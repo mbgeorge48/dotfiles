@@ -38,6 +38,10 @@ function shell_config_setup() {
     if [[ $SHELL == "/bin/zsh" ]]; then
         ln -s ~/.dotfiles/shell/zsh_extras ~/.zsh_extras &>/dev/null
     fi
+    if [[ $SHELL == "/bin/bash" ]]; then
+        # 🤫🤫🤫
+        echo "source ~/.bash_profile" >> ~/.bashrc
+    fi
 }
 
 function create_custom_aliases() {
