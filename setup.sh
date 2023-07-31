@@ -126,12 +126,16 @@ function npm_setup() {
     sudo apt-get install nodejs npm -y
 }
 
-# Create ssh and gpg foldets
+# Create ssh and gpg folders
 function gpg_ssh_setup() {
     colour_echo "Prepping GPG and SSH folders"
     mkdir -p ~/.ssh
     gpg --list-secret-keys --keyid-format LONG
     mkdir -p ~/.gnupg
+    echo "You may want to set a default"
+    echo "default-cache-ttl & max-cache-ttl"
+    echo "in ~/.gnupg/gpg-agent.conf"
+    echo "If not using any pin entry software"
 }
 
 if [[  $(uname | tr '[:upper:]' '[:lower:]') = *linux* ]]; then

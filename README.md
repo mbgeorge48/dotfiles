@@ -4,7 +4,7 @@ _Haven't really tested this in WSL and the setup script won't work in regular Wi
 
 ## Setup
 
-1. Install Apple's Command Line Tools, which are prerequisites for Git and Homebrew.
+1. If you're on OSX then start by installing Apple's Command Line Tools, which are prerequisites for Git and Homebrew.
 
 ```sh
 xcode-select --install
@@ -60,11 +60,31 @@ echo "test" | gpg --clearsign
 If you're reusing a key...
 
 ```sh
-vim ~/.ssh/id_ed25519
-<copy in your private key>
-write and quit
-chmod 600 ~/.ssh/id_ed25519
+#Download existing private key from somewhere
+mv path/to/id_blabla ~/.ssh
+chmod 600 ~/.ssh/id_blabla
+ssh-add id_blabla
 ```
+
+You might want to do something extra in the case you have 2 seperate ssh keys for the same site i.e. you've got a personal and a work GitHub account, if so you would want something like:
+
+```sh
+Host github.com
+    Hostname github.com
+    User git
+    AddKeysToAgent yes
+    IdentitiesOnly yes
+    IdentityFile ~/.ssh/id_blabla
+
+Host work-github.com
+    Hostname github.com
+    User git
+    AddKeysToAgent yes
+    IdentitiesOnly yes
+    IdentityFile ~/.ssh/id_blabla_work
+```
+
+Then when you're cloning from the work-github host you just change the url in the git clone to swap `github.com` to `work.github.com`
 
 [Follow this guide to setup you SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
 
@@ -96,7 +116,4 @@ The launch options I'm using are `-freq 144 -precachefontchars -novid -nojoy nos
 
 ## TODOs
 
-Debain guide to setting up Pyenv and Node
 PS1 being a bit flaky on bash
-gpg caching in debian
-Update ssh steps
