@@ -8,7 +8,7 @@ bash_prompt="bash_prompt"
 function colour_echo() {
     COLOUR='\033[0;35m'
     ENDCOLOUR='\033[0m'
-    if [[ "$entry_point" == "zprofile" ]]; then
+    if [[ $SHELL == "/bin/zsh" ]]; then
         echo -e "${COLOUR}$1${ENDCOLOUR}"
     else
         echo "$1"
@@ -115,6 +115,17 @@ function vscode_setup() {
     . ~/.dotfiles/vscode/extensions
 }
 
+function pyenv_setup() {
+    colour_echo "Configuring Pyenv"
+    sudo apt-get install make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev -y
+    curl https://pyenv.run | bash
+}
+
+function npm_setup() {
+    colour_echo "Configuring NPM"
+    sudo apt-get install nodejs npm -y
+}
+
 # Create ssh and gpg foldets
 function gpg_ssh_setup() {
     colour_echo "Prepping GPG and SSH folders"
@@ -123,21 +134,45 @@ function gpg_ssh_setup() {
     mkdir -p ~/.gnupg
 }
 
+if [[  $(uname | tr '[:upper:]' '[:lower:]') = *linux* ]]; then
+    mac=false
+else
+    mac=true
+fi
+
+
 colour_echo "Setting up dotfiles..."
+if [[ $mac -eq 0 ]]; then
+    colour_echo "Updating packages"
+    apt-get &> /dev/null
+    if [[ $? -eq 1 ]]; then
+        sudo apt-get update -y
+    else
+        # Haven't tested this
+        sudo yum update -y
+    fi
+fi
 shell_config_setup
-if [[ $SHELL == "/bin/zsh" ]]; then
+if [[ $mac -eq 1 ]]; then
     brew_setup
 fi
 git_setup
 personal_git_setup
 vim_setup
-if [[ $SHELL == "/bin/zsh" ]]; then
+if [[ $mac -eq 1 ]]; then
     vscode_setup
+fi
+if [[ $mac -eq 0 ]]; then
+    pyenv_setup
+    npm_setup
 fi
 gpg_ssh_setup
 colour_echo "Setup Complete!"
 
-if [[ "$1" == "custom" ]]; then
+if [[ "$1" == "work" ]]; then
     create_custom_aliases
     work_git_setup
 fi
+
+# Restart shell
+exec $SHELL
