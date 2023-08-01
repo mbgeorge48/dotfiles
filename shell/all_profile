@@ -38,6 +38,9 @@ fi
 export VISUAL=vim
 export EDITOR='$VISUAL'
 
+bindkey -v
+bindkey '^R' history-incremental-search-backward
+
 cd_list_dir() {
     cd $1
     ls
@@ -59,7 +62,6 @@ alias grep_history='history | grep'
 alias current_branch='git rev-parse --abbrev-ref HEAD'
 alias cdl='cd_list_dir'
 alias echo_scp='echo $USER@$(hostname -s):$PWD'
-
 
 if [ -e $HOME/.custom_aliases ]; then
     source ~/.custom_aliases
