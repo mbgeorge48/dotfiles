@@ -1,12 +1,12 @@
-choco install 1password
-choco install docker-desktop
-choco install docker-engine
-choco install firefox
-choco install googlechrome
-choco install notion
-choco install postman
-choco install spotify
-choco install steam
-choco install todoist-desktop
-choco install vlc
-choco install vscode
+choco install 1password --yes
+choco install docker-desktop --yes
+choco install docker-engine --yes
+choco install firefox --yes
+choco install googlechrome --yes
+choco install notion --yes
+choco install postman --yes
+choco install spotify --yes
+choco install steam --yes
+choco install todoist-desktop --yes
+choco install vlc --yes
+choco install vscode --yes
