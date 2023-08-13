@@ -124,6 +124,8 @@ function pyenv_setup() {
 function npm_setup() {
     colour_echo "Configuring NPM"
     sudo apt-get install nodejs npm -y
+    colour_echo "Install Yarn"
+    sudo npm install -g yarn
     colour_echo "Configuring NVM"
     curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
 }

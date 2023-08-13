@@ -32,8 +32,9 @@
     "[typescriptreact]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "editor.fontFamily": "Hack, Inconsolata-Regular, Consolas, 'Courier New', monospace",
+    "catppuccin.bracketMode": "neovim",
     "diffEditor.ignoreTrimWhitespace": false,
+    "editor.fontFamily": "Jetbrains Mono, Hack, Inconsolata-Regular, Consolas, 'Courier New', monospace",
     "editor.fontSize": 14,
     "editor.fontLigatures": false,
     "editor.formatOnSave": true,
