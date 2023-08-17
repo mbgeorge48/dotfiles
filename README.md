@@ -45,8 +45,7 @@ gpg --import public.key
 gpg --import private.key
 ```
 
-After Brew installs Pinentry run `which pinentry-mac` to get the path
-Then add that path to `~/.gnupg/gpg-agent.conf`
+After Brew installs Pinentry run `echo "pinentry-program $(which pinentry-mac)" >> ~/.gnupg/gpg-agent.conf` to save the pin entry path
 Restart `gpgconf --kill gpg-agent`
 
 If the GPG key is throwning an error you can run this to help debug it
