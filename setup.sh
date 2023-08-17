@@ -134,8 +134,10 @@ function npm_setup() {
 function gpg_ssh_setup() {
     colour_echo "Prepping GPG and SSH folders"
     mkdir -p ~/.ssh
+    chmod 700 ~/.ssh
     gpg --list-secret-keys --keyid-format LONG
     mkdir -p ~/.gnupg
+    chmod 700 ~/.gnupg
     echo "You may want to set a default"
     echo "default-cache-ttl & max-cache-ttl"
     echo "in ~/.gnupg/gpg-agent.conf"
@@ -143,9 +145,9 @@ function gpg_ssh_setup() {
 }
 
 if [[  $(uname | tr '[:upper:]' '[:lower:]') = *linux* ]]; then
-    mac=false
+    mac=0
 else
-    mac=true
+    mac=1
 fi
 
 

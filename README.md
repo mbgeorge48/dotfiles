@@ -63,10 +63,10 @@ If you're reusing a key...
 #Download existing private key from somewhere
 mv path/to/id_blabla ~/.ssh
 chmod 600 ~/.ssh/id_blabla
-ssh-add id_blabla
+ssh-add ~/.ssh/id_blabla
 ```
 
-You might want to do something extra in the case you have 2 seperate ssh keys for the same site i.e. you've got a personal and a work GitHub account, if so you would want something like:
+You might want to do something extra in the case you have 2 seperate ssh keys for the same site i.e. you've got a personal and a work GitHub account, if so you would want something like this in `~/.ssh/config`:
 
 ```sh
 Host github.com
