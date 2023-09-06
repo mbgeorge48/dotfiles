@@ -15,6 +15,15 @@ function colour_echo() {
     fi
 }
 
+function run_with_privileges() {
+    type sudo &>/dev/null
+    if [ $? -ne 0 ]; then
+        sudo $1
+    else
+        $1
+    fi
+}
+
 function shell_config_setup() {
     colour_echo "Backing up shell config"
     if [ -s ~/.$zsh_entry_point ]; then
@@ -36,11 +45,11 @@ function shell_config_setup() {
     ln -s ~/.dotfiles/shell/all_profile ~/.$zsh_entry_point &>/dev/null
     ln -s ~/.dotfiles/shell/all_profile ~/.$bash_entry_point &>/dev/null
     if [[ $SHELL == "/bin/zsh" ]]; then
+        echo "source ~/.$zsh_entry_point" >> ~/.zshrc
         ln -s ~/.dotfiles/shell/zsh_extras ~/.zsh_extras &>/dev/null
     fi
     if [[ $SHELL == "/bin/bash" ]]; then
-        # 🤫🤫🤫
-        echo "source ~/.bash_profile" >> ~/.bashrc
+        echo "source ~/.$bash_entry_point" >> ~/.bashrc
     fi
 }
 
@@ -117,15 +126,15 @@ function vscode_setup() {
 
 function pyenv_setup() {
     colour_echo "Configuring Pyenv"
-    sudo apt-get install make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev -y
+    run_with_privileges apt-get install make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev -y
     curl https://pyenv.run | bash
 }
 
 function npm_setup() {
     colour_echo "Configuring NPM"
-    sudo apt-get install nodejs npm -y
+    run_with_privileges apt-get install nodejs npm -y
     colour_echo "Install Yarn"
-    sudo npm install -g yarn
+    run_with_privileges npm install -g yarn
     colour_echo "Configuring NVM"
     curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
 }
@@ -156,10 +165,10 @@ if [[ $mac -eq 0 ]]; then
     colour_echo "Updating packages"
     apt-get &> /dev/null
     if [[ $? -eq 1 ]]; then
-        sudo apt-get update -y
+        run_with_privileges apt-get update -y
     else
-        # Haven't tested this
-        sudo yum update -y
+        # Haven't tested this...
+        run_with_privileges yum update -y
     fi
 fi
 shell_config_setup
