@@ -9,9 +9,9 @@ function colour_echo() {
     COLOUR='\033[0;35m'
     ENDCOLOUR='\033[0m'
     if [[ $SHELL == "/bin/zsh" ]]; then
-        echo -e "${COLOUR}$1${ENDCOLOUR}"
+        echo -e "\n${COLOUR}$1${ENDCOLOUR}"
     else
-        echo "$1"
+        echo "\n$1"
     fi
 }
 
