@@ -215,7 +215,7 @@ defaults write -g com.apple.swipescrolldirection -int 0
 
 ---
 
-Set the keyboard repeat rate and delay until repeat to the fastest/shortest settings _Not fully tested yet_
+Set the keyboard repeat rate and delay until repeat to the fastest/shortest settings
 
 ```bash
 defaults write -g KeyRepeat -int 2
