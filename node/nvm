@@ -1,5 +1,4 @@
 if [ -e $HOME/.nvm ]; then
-    export NVM_DIR="$HOME/.nvm"
     if [ -z "$HOMEBREW_PREFIX" ]; then
         [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
         [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
@@ -16,7 +15,6 @@ function set_versions_nvm() {
     fi
 }
 
-set_versions_nvm
 function chpwd {
     set_versions_nvm
 }

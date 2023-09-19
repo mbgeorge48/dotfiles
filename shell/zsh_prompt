@@ -11,8 +11,8 @@ user='%F{cyan}%n%f'
 host='%F{red}%m:%f'
 current_path='%F{magenta}${PWD/#$HOME/~}%f'
 current_branch='%F{green}${vcs_info_msg_0_}%f'
-suffix='%F{yellow}\$%f'
+suffix='%F{yellow}=>%f'
 
 
-export PS1="${command_result}${user} => ${host}${current_path}${current_branch} ${suffix} "
+export PS1="${command_result}${user}@${host}${current_path}${current_branch} ${suffix} "
 export PS2='=> '

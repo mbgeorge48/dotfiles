@@ -1,14 +1,9 @@
-#!/bin/sh
-
-zsh_entry_point="zprofile"
-bash_entry_point="bash_profile"
-zsh_prompt="zsh_prompt"
-bash_prompt="bash_prompt"
+#!/bin/bash
 
 function colour_echo() {
     COLOUR='\033[0;35m'
     ENDCOLOUR='\033[0m'
-    if [[ $SHELL == "/bin/zsh" ]]; then
+    if [[ $(ps -p $$ -ocomm=) == *"zsh"* ]]; then
         echo -e "\n${COLOUR}$1${ENDCOLOUR}"
     else
         echo "\n$1"
@@ -26,31 +21,28 @@ function run_with_privileges() {
 
 function shell_config_setup() {
     colour_echo "Backing up shell config"
-    if [ -s ~/.$zsh_entry_point ]; then
-        mv ~/.$zsh_entry_point ~/.dotfiles/archive/ &>/dev/null
+    if [ -s ~/.zprofile ]; then
+        mv ~/.zprofile ~/.dotfiles/archive/ &>/dev/null
     fi
-    if [ -s ~/.$bash_entry_point ]; then
-        mv ~/.$bash_entry_point ~/.dotfiles/archive/ &>/dev/null
+    if [ -s ~/.bash_profile ]; then
+        mv ~/.bash_profile ~/.dotfiles/archive/ &>/dev/null
     fi
-    if [ -s ~/.$zsh_prompt ]; then
-        mv ~/.$zsh_prompt ~/.dotfiles/archive/ &>/dev/null
+    if [ -s ~/.zsh_prompt ]; then
+        mv ~/.zsh_prompt ~/.dotfiles/archive/ &>/dev/null
     fi
-    if [ -s ~/.$bash_prompt ]; then
-        mv ~/.$bash_prompt ~/.dotfiles/archive/ &>/dev/null
+    if [ -s ~/.bash_prompt ]; then
+        mv ~/.bash_prompt ~/.dotfiles/archive/ &>/dev/null
     fi
 
     colour_echo "Configuring shell profile"
-    ln -s ~/.dotfiles/shell/$zsh_prompt ~/.$zsh_prompt &>/dev/null
-    ln -s ~/.dotfiles/shell/$bash_prompt ~/.$bash_prompt &>/dev/null
-    ln -s ~/.dotfiles/shell/all_profile ~/.$zsh_entry_point &>/dev/null
-    ln -s ~/.dotfiles/shell/all_profile ~/.$bash_entry_point &>/dev/null
-    if [[ $SHELL == "/bin/zsh" ]]; then
-        echo "source ~/.$zsh_entry_point" >> ~/.zshrc
-        ln -s ~/.dotfiles/shell/zsh_extras ~/.zsh_extras &>/dev/null
-    fi
-    if [[ $SHELL == "/bin/bash" ]]; then
-        echo "source ~/.$bash_entry_point" >> ~/.bashrc
-    fi
+    case $(ps -p $$ -ocomm=) in
+    *'zsh'*)
+        echo $HOME/.dotfiles/shell/profile  >> ~/.zshrc
+        ;;
+    *'bash'*)
+        echo $HOME/.dotfiles/shell/profile  >> ~/.bashrc
+        ;;
+    esac
 }
 
 function create_custom_aliases() {
@@ -147,7 +139,7 @@ function gpg_ssh_setup() {
     gpg --list-secret-keys --keyid-format LONG
     mkdir -p ~/.gnupg
     chmod 700 ~/.gnupg
-    echo "You may want to set a default"
+    echo "You may wantls to set a default"
     echo "default-cache-ttl & max-cache-ttl"
     echo "in ~/.gnupg/gpg-agent.conf"
     echo "If not using any pin entry software"

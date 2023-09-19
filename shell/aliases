@@ -1,0 +1,28 @@
+#!/bin/bash
+
+alias set_nvm='source $HOME/.dotfiles/node/nvm'
+alias set_python='source $HOME/.dotfiles/python/python'
+
+cd_list_dir() {
+    cd $1
+    ls
+}
+
+# For seeing what model phone is connected when using usb debugging
+# Run `abd devices` to get the arg required
+function what_phone_model_is_this(){
+    adb -s $1 shell getprop ro.product.model
+}
+
+
+alias grep='grep --color=auto'
+alias ls='ls -FG --color=auto'
+alias ll='ls -ahl'
+alias grep_history='history | grep'
+alias this_branch='git rev-parse --abbrev-ref HEAD'
+alias cdl='cd_list_dir'
+alias echo_scp='echo $USER@$(hostname -s):$PWD'
+
+if [ -e $HOME/.custom_aliases ]; then
+    source ~/.custom_aliases
+fi
