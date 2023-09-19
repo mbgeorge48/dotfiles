@@ -1,13 +1,13 @@
 #!/bin/sh
 
 source $HOME/.dotfiles/shell/aliases
-case $(ps -p $$ -ocomm=) in
+case $SHELL in
 *'zsh'*)
     source $HOME/.dotfiles/shell/zsh_prompt
     source $HOME/.dotfiles/shell/zsh_extras
     ;;
 *'bash'*)
-    source $HOME/.bash_prompt
+    source $HOME/.dotfiles/shell/bash_prompt
     ;;
 esac
 

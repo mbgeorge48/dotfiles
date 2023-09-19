@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 
 function colour_echo() {
     COLOUR='\033[0;35m'
     ENDCOLOUR='\033[0m'
-    if [[ $(ps -p $$ -ocomm=) == *"zsh"* ]]; then
+    if [[ $SHELL == "/bin/zsh" ]]; then
         echo -e "\n${COLOUR}$1${ENDCOLOUR}"
     else
         echo "\n$1"
@@ -35,12 +35,12 @@ function shell_config_setup() {
     fi
 
     colour_echo "Configuring shell profile"
-    case $(ps -p $$ -ocomm=) in
+    case $SHELL in
     *'zsh'*)
-        echo $HOME/.dotfiles/shell/profile  >> ~/.zshrc
+        echo source ~/.dotfiles/shell/profile >> ~/.zshrc
         ;;
     *'bash'*)
-        echo $HOME/.dotfiles/shell/profile  >> ~/.bashrc
+        echo source ~/.dotfiles/shell/profile >> ~/.bashrc
         ;;
     esac
 }
@@ -145,17 +145,16 @@ function gpg_ssh_setup() {
     echo "If not using any pin entry software"
 }
 
-if [[  $(uname | tr '[:upper:]' '[:lower:]') = *linux* ]]; then
+if [[ $(uname | tr '[:upper:]' '[:lower:]') = *linux* ]]; then
     mac=0
 else
     mac=1
 fi
 
-
 colour_echo "Setting up dotfiles..."
 if [[ $mac -eq 0 ]]; then
     colour_echo "Updating packages"
-    apt-get &> /dev/null
+    apt-get &>/dev/null
     if [[ $? -eq 1 ]]; then
         run_with_privileges apt-get update -y
     else

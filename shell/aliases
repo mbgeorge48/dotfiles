@@ -10,10 +10,9 @@ cd_list_dir() {
 
 # For seeing what model phone is connected when using usb debugging
 # Run `abd devices` to get the arg required
-function what_phone_model_is_this(){
+function what_phone_model_is_this() {
     adb -s $1 shell getprop ro.product.model
 }
-
 
 alias grep='grep --color=auto'
 alias ls='ls -FG --color=auto'
