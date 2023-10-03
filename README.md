@@ -114,3 +114,5 @@ The autoexec lives `..\Steam\steamapps\common\Team Fortress 2\tf\cfg`
 The launch options I'm using are `-freq 144 -precachefontchars -novid -nojoy nosteamcontroller -fullscreen +exec autoexec.cfg`
 
 ## TODOs
+
+-   Add some instructions on how to gather things like the brewfile and vscode extensions
