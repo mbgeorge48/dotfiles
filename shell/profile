@@ -18,22 +18,20 @@ export LDFLAGS=-L/usr/local/opt/openssl/lib
 # GPG
 export GPG_TTY=$(tty)
 
-if [[ $PWD = $HOME/personal/* ]] || [[ $PWD = $HOME/work/* ]]; then
-    if [ -e $HOME/.dotfiles/node/nvm ]; then
-        source $HOME/.dotfiles/node/nvm
-    fi
+if [ -e $HOME/.dotfiles/node/nvm ]; then
+    source $HOME/.dotfiles/node/nvm
+fi
 
-    if [ -e $HOME/.dotfiles/python/python ]; then
-        command -v python3 >/dev/null 2>&1 && source $HOME/.dotfiles/python/python
-        command -v python >/dev/null 2>&1 && source $HOME/.dotfiles/python/python
-    fi
+if [ -e $HOME/.dotfiles/python/python ]; then
+    command -v python3 >/dev/null 2>&1 && source $HOME/.dotfiles/python/python
+    command -v python >/dev/null 2>&1 && source $HOME/.dotfiles/python/python
+fi
 
-    brew list android-studio &>/dev/null
-    if [ $? -eq 0 ]; then
-        export ANDROID_HOME=$HOME/Library/Android/sdk
-        export PATH=$ANDROID_HOME/platform-tools:$PATH
-        export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jbr/Contents/Home
-    fi
+brew list android-studio &>/dev/null
+if [ $? -eq 0 ]; then
+    export ANDROID_HOME=$HOME/Library/Android/sdk
+    export PATH=$ANDROID_HOME/platform-tools:$PATH
+    export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jbr/Contents/Home
 fi
 
 export VISUAL=vim
