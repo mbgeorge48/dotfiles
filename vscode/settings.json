@@ -1,79 +1,84 @@
 {
-    "[css]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[django-html]": {
-        "editor.formatOnSave": false
-    },
-    "[html]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[javascript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[javascriptreact]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[json]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[jsonc]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[markdown]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[python]": {
-        "editor.defaultFormatter": "ms-python.python"
-    },
-    "[typescript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[typescriptreact]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "catppuccin.bracketMode": "neovim",
-    "diffEditor.ignoreTrimWhitespace": false,
-    "editor.fontFamily": "Jetbrains Mono, Hack, Inconsolata-Regular, Consolas, 'Courier New', monospace",
-    "editor.fontSize": 14,
-    "editor.fontLigatures": false,
-    "editor.formatOnSave": true,
-    "editor.guides.bracketPairs": true,
-    "editor.largeFileOptimizations": true,
-    "editor.minimap.enabled": true,
-    "editor.minimap.autohide": true,
-    "editor.minimap.renderCharacters": false,
-    "editor.renderControlCharacters": true,
-    "editor.renderWhitespace": "all",
-    "editor.tabSize": 4,
-    "emmet.triggerExpansionOnTab": true,
-    "extensions.autoUpdate": "onlyEnabledExtensions",
-    "files.associations": {
-        "**/templates/*.html": "django-html",
-        "**/templates/*": "django-txt"
-    },
-    "git.autofetch": true,
-    "git.confirmSync": false,
-    "git.enableSmartCommit": false,
-    "githubPullRequests.terminalLinksHandler": "github",
-    "html.format.indentInnerHtml": true,
-    "html.format.preserveNewLines": false,
-    "python.defaultInterpreterPath": "${workspaceFolder}/.env/bin/python",
-    "python.formatting.provider": "black",
-    "python.linting.flake8Enabled": true,
-    "python.venvPath": ".env",
-    "prettier.tabWidth": 4,
-    "security.workspace.trust.untrustedFiles": "newWindow",
-    "terminal.external.osxExec": "Terminal.app",
-    "terminal.external.windowsExec": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell",
-    "terminal.integrated.defaultProfile.osx": "zsh",
-    "terminal.integrated.defaultProfile.windows": "Command Prompt",
-    "terminal.integrated.enableMultiLinePasteWarning": false,
-    "terminal.integrated.scrollback": 200000,
-    "workbench.colorTheme": "Catppuccin Frappé",
-    "workbench.iconTheme": "material-icon-theme",
-    "workbench.editorAssociations": {
-        "*.ipynb": "jupyter-notebook"
-    },
-    "workbench.startupEditor": "none"
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[django-html]": {
+    "editor.formatOnSave": false
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.python"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "catppuccin.bracketMode": "rainbow",
+  "diffEditor.ignoreTrimWhitespace": false,
+  "editor.fontFamily": "Jetbrains Mono, Hack, Inconsolata-Regular, Consolas, 'Courier New', monospace",
+  "editor.fontSize": 14,
+  "editor.fontLigatures": false,
+  "editor.formatOnSave": true,
+  "editor.guides.bracketPairs": true,
+  "editor.largeFileOptimizations": true,
+  "editor.minimap.enabled": true,
+  "editor.minimap.autohide": true,
+  "editor.minimap.renderCharacters": false,
+  "editor.renderControlCharacters": true,
+  "editor.renderWhitespace": "all",
+  "editor.tabSize": 4,
+  //   "editor.tabSize": 2,
+  "emmet.triggerExpansionOnTab": true,
+  "extensions.autoUpdate": "onlyEnabledExtensions",
+  "files.associations": {
+    "**/templates/*.html": "django-html",
+    "**/templates/*": "django-txt"
+  },
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.enableSmartCommit": false,
+  "githubPullRequests.terminalLinksHandler": "github",
+  "html.format.indentInnerHtml": true,
+  "html.format.preserveNewLines": false,
+  "python.defaultInterpreterPath": "${workspaceFolder}/.env/bin/python",
+  "python.formatting.provider": "black",
+  "python.linting.flake8Enabled": true,
+  "python.venvPath": ".env",
+  "prettier.tabWidth": 4,
+  //   "prettier.tabWidth": 2,
+  "security.workspace.trust.untrustedFiles": "newWindow",
+  "terminal.external.osxExec": "Terminal.app",
+  "terminal.external.windowsExec": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell",
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.defaultProfile.windows": "Command Prompt",
+  "terminal.integrated.enableMultiLinePasteWarning": false,
+  "terminal.integrated.scrollback": 200000,
+  "workbench.colorTheme": "Catppuccin Frappé",
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.editorAssociations": {
+    "*.ipynb": "jupyter-notebook"
+  },
+  "workbench.startupEditor": "none"
 }
