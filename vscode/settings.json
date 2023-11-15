@@ -81,7 +81,8 @@
     "workbench.colorTheme": "Catppuccin Frappé",
     "workbench.colorCustomizations": {
         "[Catppuccin*]": {
-            "terminal.background": "#000000"
+            "terminal.background": "#191b2a",
+            "terminal.foreground": "#ffffff"
         }
     },
     "workbench.iconTheme": "material-icon-theme",
