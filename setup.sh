@@ -132,18 +132,18 @@ function create_custom_aliases() {
 # }
 
 # Create ssh and gpg folders
-function gpg_ssh_setup() {
-    colour_echo "Prepping GPG and SSH folders"
-    mkdir -p ~/.ssh
-    chmod 700 ~/.ssh
-    gpg --list-secret-keys --keyid-format LONG
-    mkdir -p ~/.gnupg
-    chmod 700 ~/.gnupg
-    echo "You may wantls to set a default"
-    echo "default-cache-ttl & max-cache-ttl"
-    echo "in ~/.gnupg/gpg-agent.conf"
-    echo "If not using any pin entry software"
-}
+# function gpg_ssh_setup() {
+#     colour_echo "Prepping GPG and SSH folders"
+#     mkdir -p ~/.ssh
+#     chmod 700 ~/.ssh
+#     gpg --list-secret-keys --keyid-format LONG
+#     mkdir -p ~/.gnupg
+#     chmod 700 ~/.gnupg
+#     echo "You may wantls to set a default"
+#     echo "default-cache-ttl & max-cache-ttl"
+#     echo "in ~/.gnupg/gpg-agent.conf"
+#     echo "If not using any pin entry software"
+# }
 
 if [[ $(uname | tr '[:upper:]' '[:lower:]') = *linux* ]]; then
     mac=0

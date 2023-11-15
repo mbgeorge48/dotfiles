@@ -1,0 +1,34 @@
+#!/bin/sh
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+if [ "$1" == "setup" ]; then
+    if [ -s ~/.zprofile ]; then
+        mv ~/.zprofile ~/.dotfiles/archive/ &>/dev/null
+    fi
+    if [ -s ~/.bash_profile ]; then
+        mv ~/.bash_profile ~/.dotfiles/archive/ &>/dev/null
+    fi
+    if [ -s ~/.zsh_prompt ]; then
+        mv ~/.zsh_prompt ~/.dotfiles/archive/ &>/dev/null
+    fi
+    if [ -s ~/.bash_prompt ]; then
+        mv ~/.bash_prompt ~/.dotfiles/archive/ &>/dev/null
+    fi
+
+    case $SHELL in
+    *'zsh'*)
+        echo source ~/.dotfiles/shell/profile >> ~/.zshrc
+        ;;
+    *'bash'*)
+        echo source ~/.dotfiles/shell/profile >> ~/.bashrc
+        ;;
+    esac
+
+    custom_aliases=".custom_aliases"
+    if [ -s ~/$custom_aliases ]; then
+        touch ~/$custom_aliases
+    fi
+fi

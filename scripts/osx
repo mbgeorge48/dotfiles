@@ -1,4 +1,8 @@
-#!/bin/bash
+#!/bin/sh
+
+set -e
+
+cd "$(dirname "$0")/.."
 
 echo "Dock setup"
 defaults read com.apple.dock >~/.dotfiles/archive/mac_os_dock

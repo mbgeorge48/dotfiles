@@ -54,6 +54,13 @@ If the GPG key is throwning an error you can run this to help debug it
 echo "test" | gpg --clearsign
 ```
 
+You may want to set a default value for
+
+-   default-cache-ttl
+-   max-cache-ttl
+
+in your ~/.gnupg/gpg-agent.conf if not using any pin entry software
+
 #### SSH keys
 
 If you're reusing a key...

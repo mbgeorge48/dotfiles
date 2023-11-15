@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+if ! [ -x "$(command -v gpg)" ]; then
+    echo "Requires GPG to be installed"
+    exit 1
+fi
+
+gpg --list-secret-keys --keyid-format LONG
+mkdir -p ~/.gnupg
+chmod 700 ~/.gnupg
