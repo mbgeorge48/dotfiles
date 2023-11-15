@@ -5,9 +5,9 @@ set -e
 cd "$(dirname "$0")/.."
 
 if ! [ -x "$(command -v git)" ]; then
-    echo "Requires Git to be installed";
-    echo "How did you get to this point?!";
-    exit 1;
+    echo "Requires Git to be installed"
+    echo "How did you get to this point?!"
+    exit 1
 fi
 
 if [ "$1" == "setup" ]; then

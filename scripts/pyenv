@@ -5,7 +5,8 @@ set -e
 cd "$(dirname "$0")/.."
 
 if [ "$(uname -s)" = "Darwin" ]; then
-    echo "Error: script only runs on none Mac Unix machines"; exit 1;
+    echo "Error: script only runs on none Mac Unix machines"
+    exit 1
 fi
 
 if ! [ -x "$(command -v sudo)" ]; then
