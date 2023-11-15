@@ -1,0 +1,20 @@
+#!/bin/sh
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+if ! [ -x "$(command -v code)" ]; then
+    echo "Requires VScode to be installed";
+    exit 1;
+fi
+
+if [ "$1" == "setup" ]; then
+    if [ -s ~/Library/Application\ Support/Code/User/settings.json ]; then
+        mv ~/Library/Application\ Support/Code/User/settings.json /archive/ &>/dev/null
+    fi
+    ln -s vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
+fi
+
+echo "Installing VS Code extensions"
+. vscode/extensions
