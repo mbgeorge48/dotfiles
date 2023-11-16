@@ -16,7 +16,7 @@ if [ "$1" == "setup" ]; then
     ln -s vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
 fi
 
-if [ "$1" == "update" ]; then
+if [ "$1" == "sync" ]; then
     code --list-extensions | xargs -L 1 echo code --install-extension > vscode/extensions
 else
     . vscode/extensions

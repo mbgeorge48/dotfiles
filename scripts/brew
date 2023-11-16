@@ -14,7 +14,11 @@ if ! [ -x "$(command -v brew)" ]; then
     fi
 fi
 
-echo "Installing any new packages"
-brew update
-brew upgrade
-brew bundle --file brew/Brewfile
+if [ "$1" == "sync" ]; then
+    cd brew
+    brew bundle dump --force
+else
+    brew update
+    brew upgrade
+    brew bundle --file brew/Brewfile
+fi
