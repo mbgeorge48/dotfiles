@@ -26,11 +26,6 @@ if [ "$1" == "setup" ]; then
         echo source ~/.dotfiles/shell/profile >>~/.bashrc
         ;;
     esac
-
-    custom_aliases=".custom_aliases"
-    if [ -s ~/$custom_aliases ]; then
-        touch ~/$custom_aliases
-    fi
 fi
 
 if [ "$1" == "update" ]; then
