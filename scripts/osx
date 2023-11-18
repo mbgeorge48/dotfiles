@@ -4,6 +4,11 @@ set -e
 
 cd "$(dirname "$0")/.."
 
+if [ "$(uname -s)" = "Darwin" ]; then
+    echo "Error: script only runs on none Mac Unix machines"
+    exit 1
+fi
+
 echo "Dock setup"
 defaults read com.apple.dock >~/.dotfiles/archive/mac_os_dock
 

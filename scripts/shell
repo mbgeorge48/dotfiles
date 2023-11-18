@@ -6,29 +6,52 @@ cd "$(dirname "$0")/.."
 
 if [ "$1" == "setup" ]; then
     if [ -s ~/.zprofile ]; then
-        mv ~/.zprofile ~/.dotfiles/archive/ &>/dev/null
+        mv ~/.zprofile ~/.dotfiles/archive/ 2>/dev/null
     fi
     if [ -s ~/.bash_profile ]; then
-        mv ~/.bash_profile ~/.dotfiles/archive/ &>/dev/null
+        mv ~/.bash_profile ~/.dotfiles/archive/ 2>/dev/null
     fi
     if [ -s ~/.zsh_prompt ]; then
-        mv ~/.zsh_prompt ~/.dotfiles/archive/ &>/dev/null
+        mv ~/.zsh_prompt ~/.dotfiles/archive/ 2>/dev/null
     fi
     if [ -s ~/.bash_prompt ]; then
-        mv ~/.bash_prompt ~/.dotfiles/archive/ &>/dev/null
+        mv ~/.bash_prompt ~/.dotfiles/archive/ 2>/dev/null
     fi
 
     case $SHELL in
     *'zsh'*)
-        echo source ~/.dotfiles/shell/profile >> ~/.zshrc
+        echo source ~/.dotfiles/shell/profile >>~/.zshrc
         ;;
     *'bash'*)
-        echo source ~/.dotfiles/shell/profile >> ~/.bashrc
+        echo source ~/.dotfiles/shell/profile >>~/.bashrc
         ;;
     esac
 
     custom_aliases=".custom_aliases"
     if [ -s ~/$custom_aliases ]; then
         touch ~/$custom_aliases
+    fi
+fi
+
+if [ "$1" == "update" ]; then
+    if ! [ "$(uname -s)" = "Darwin" ]; then
+        if [ -x "$(command -v apt-get)" ]; then
+            if ! [ -x "$(command -v sudo)" ]; then
+                sudo apt-get update -y
+                exit 0
+            else
+                apt-get update -y
+                exit 0
+            fi
+        fi
+        if [ -x "$(command -v yum)" ]; then
+            if ! [ -x "$(command -v sudo)" ]; then
+                sudo yum update -y
+                exit 0
+            else
+                yum update -y
+                exit 0
+            fi
+        fi
     fi
 fi
