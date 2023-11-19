@@ -4,8 +4,8 @@ set -e
 
 cd "$(dirname "$0")/.."
 
-if [ "$(uname -s)" = "Darwin" ]; then
-    echo "Error: script only runs on none Mac Unix machines"
+if ! [ "$(uname -s)" = "Darwin" ]; then
+    echo "Error: script only runs on Mac"
     exit 1
 fi
 
