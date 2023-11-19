@@ -7,4 +7,4 @@ user='\[\e[0;36m\]\u\[\e[m\]'
 host='\[\e[0;35m\]\h\[\e[m\]'
 path='\[\e[38;5;214m\]\w\[\e[m\]'
 suffix='\[\e[0;34m\]\=>\[\e[m\]'
-export PS1="${open_bracket}${user}@${host}:${path} ${close_bracket}${command_result} "
+export PS1="${open_bracket}${user}@${host}:${path}${close_bracket}\n${command_result} "
