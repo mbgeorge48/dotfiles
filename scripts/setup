@@ -1,13 +1,21 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
 cd "$(dirname "$0")/.."
 
+mkdir -p ~/personal/
+
+echo "Shell"
 scripts/shell update
 scripts/shell setup
 
-scripts/brew
+if [ "$(uname -s)" = "Darwin" ]; then
+    echo "Brew"
+    scripts/brew
+fi
+
+echo "Git"
 scripts/git setup
 
 if [ "$1" == "work" ]; then
@@ -15,16 +23,31 @@ if [ "$1" == "work" ]; then
     if [ -s ~/$custom_aliases ]; then
         touch ~/.custom_aliases
     fi
+    echo "Work Git"
     scripts/git work
 fi
 
+echo "Vim"
 scripts/vim setup
+
+echo "VScode"
 scripts/vscode setup
 
-scripts/pyenv
-scripts/npm
+if ! [ "$(uname -s)" = "Darwin" ]; then
+    echo "Pyenv"
+    scripts/pyenv
+    echo "NPM"
+    scripts/npm
 
+fi
+
+echo "GPG"
 scripts/gpg
+echo "SSH"
 scripts/ssh
+
+if ! [ -L ~/personal/dotfiles ]; then
+    ln -s ~/.dotfiles ~/personal/dotfiles
+fi
 
 exec $SHELL

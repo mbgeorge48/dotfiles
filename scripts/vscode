@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
@@ -14,7 +14,12 @@ if [ "$1" == "setup" ]; then
         if [ -s ~/Library/Application\ Support/Code/User/settings.json ]; then
             mv ~/Library/Application\ Support/Code/User/settings.json /archive/ 2>/dev/null
         fi
-        ln -s vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
+
+        if [ -L ~/Library/Application\ Support/Code/User/settings.json ]; then
+            rm ~/Library/Application\ Support/Code/User/settings.json
+        fi
+        ln -s $HOME/.dotfiles/vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
+
     else
         echo "Need to manually create the symlink for the settings file on non Mac systems"
         echo "If using WSL then the settings will live somewhere near here"
@@ -27,5 +32,5 @@ fi
 if [ "$1" == "sync" ]; then
     code --list-extensions | xargs -L 1 echo code --install-extension >vscode/extensions
 else
-    . vscode/extensions
+    . vscode/extensions | grep -v "Installing extensions"
 fi

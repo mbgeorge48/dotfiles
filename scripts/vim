@@ -1,8 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
 cd "$(dirname "$0")/.."
+echo $(dirname "$0")/..
 
 if ! [ -x "$(command -v vim)" ]; then
     echo "Requires Vim to be installed"
@@ -13,5 +14,9 @@ if [ "$1" == "setup" ]; then
     if [ -s ~/.vimrc ]; then
         mv ~/.vimrc archive/ 2>/dev/null
     fi
-    ln -s vim/vimrc ~/.vimrc
+
+    if [ -L ~/.vimrc ]; then
+        rm ~/.vimrc
+    fi
+    ln -s $HOME/.dotfiles/vim/vimrc ~/.vimrc
 fi

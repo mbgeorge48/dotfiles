@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
@@ -14,17 +14,18 @@ if [ "$1" == "setup" ]; then
     if [ -s ~/.gitconfig ]; then
         mv ~/.gitconfig archive/ 2>/dev/null
     fi
-    ln -s git/gitconfig ~/.gitconfig
+    if [ -L ~/.gitconfig ]; then
+        rm ~/.gitconfig
+    fi
+    ln -s $HOME/.dotfiles/git/gitconfig ~/.gitconfig
 
-    mkdir -p ~/personal/
     if [ -s ~/personal/.gitconfig-personal ]; then
         mv ~/personal/.gitconfig-personal archive/ 2>/dev/null
     fi
-    ln -s git/gitconfig-extended ~/personal/.gitconfig-personal
-
-    if [ ! -s ~/personal/dotfiles ]; then
-        ln -s ~/.dotfiles ~/personal/dotfiles
+    if [ -L ~/personal/.gitconfig-personal ]; then
+        rm ~/personal/.gitconfig-personal
     fi
+    ln -s $HOME/.dotfiles/git/gitconfig-extended ~/personal/.gitconfig-personal
 fi
 
 if [ "$1" == "work" ]; then

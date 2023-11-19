@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
@@ -17,13 +17,17 @@ if [ "$1" == "setup" ]; then
     if [ -s ~/.bash_prompt ]; then
         mv ~/.bash_prompt ~/.dotfiles/archive/ 2>/dev/null
     fi
-
+    source_command="source ~/.dotfiles/shell/profile"
     case $SHELL in
     *'zsh'*)
-        echo source ~/.dotfiles/shell/profile >>~/.zshrc
+        if [ -x "$(grep -Fxq "$source_command" ~/.zshrc)" ]; then
+            echo $source_command >>~/.zshrc
+        fi
         ;;
     *'bash'*)
-        echo source ~/.dotfiles/shell/profile >>~/.bashrc
+        if [ -x "$(grep -Fxq "$source_command" ~/.bashrc)" ]; then
+            echo $source_command >>~/.bashrc
+        fi
         ;;
     esac
 fi
@@ -31,7 +35,7 @@ fi
 if [ "$1" == "update" ]; then
     if ! [ "$(uname -s)" = "Darwin" ]; then
         if [ -x "$(command -v apt-get)" ]; then
-            if ! [ -x "$(command -v sudo)" ]; then
+            if [ -x "$(command -v sudo)" ]; then
                 sudo apt-get update -y
                 exit 0
             else
@@ -40,7 +44,7 @@ if [ "$1" == "update" ]; then
             fi
         fi
         if [ -x "$(command -v yum)" ]; then
-            if ! [ -x "$(command -v sudo)" ]; then
+            if [ -x "$(command -v sudo)" ]; then
                 sudo yum update -y
                 exit 0
             else

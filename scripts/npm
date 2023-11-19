@@ -11,10 +11,10 @@ fi
 
 if ! [ -x "$(command -v sudo)" ]; then
     apt-get install nodejs npm -y
-    npm install -g yarn
 else
     sudo apt-get install nodejs npm -y
-    sudo npm install -g yarn
 fi
 
-curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+if ! [ -s ~/.nvm ]; then
+    curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+fi
