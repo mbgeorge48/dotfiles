@@ -1,0 +1,30 @@
+#!/bin/sh
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+scripts/shell update
+scripts/shell setup
+
+scripts/brew
+scripts/git setup
+
+if [ "$1" == "work" ]; then
+    custom_aliases=".custom_aliases"
+    if [ -s ~/$custom_aliases ]; then
+        touch ~/.custom_aliases
+    fi
+    scripts/git work
+fi
+
+scripts/vim setup
+scripts/vscode setup
+
+scripts/pyenv
+scripts/npm
+
+scripts/gpg
+scripts/ssh
+
+exec $SHELL

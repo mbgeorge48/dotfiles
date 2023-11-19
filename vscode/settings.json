@@ -1,55 +1,33 @@
 {
-    "[css]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
     "[django-html]": {
         "editor.formatOnSave": false
     },
-    "[html]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[javascript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[javascriptreact]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[json]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[jsonc]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[markdown]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter"
-    },
-    "[typescript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[typescriptreact]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[yaml]": {
         "editor.defaultFormatter": "redhat.vscode-yaml"
     },
     "catppuccin.bracketMode": "rainbow",
     "diffEditor.ignoreTrimWhitespace": false,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true,
+        "source.sortImports": true
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.fontFamily": "Jetbrains Mono, Hack, Inconsolata-Regular, Consolas, 'Courier New', monospace",
-    "editor.fontSize": 14,
     "editor.fontLigatures": false,
+    "editor.fontSize": 14,
     "editor.formatOnSave": true,
     "editor.guides.bracketPairs": true,
     "editor.largeFileOptimizations": true,
-    "editor.minimap.enabled": true,
     "editor.minimap.autohide": true,
+    "editor.minimap.enabled": true,
     "editor.minimap.renderCharacters": false,
     "editor.renderControlCharacters": true,
     "editor.renderWhitespace": "all",
     "editor.tabSize": 4,
-    //   "editor.tabSize": 2,
+    "editor.wordWrap": "wordWrapColumn",
     "emmet.triggerExpansionOnTab": true,
     "extensions.autoUpdate": "onlyEnabledExtensions",
     "files.associations": {
@@ -65,9 +43,8 @@
     "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
     "python.formatting.provider": "black",
     "python.linting.flake8Enabled": true,
-    "python.venvPath": ".env",
+    "python.venvPath": ".venv",
     "prettier.tabWidth": 4,
-    //   "prettier.tabWidth": 2,
     "security.workspace.trust.untrustedFiles": "newWindow",
     "terminal.external.osxExec": "Terminal.app",
     "terminal.external.windowsExec": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell",
@@ -78,16 +55,14 @@
     "terminal.integrated.fontFamily": "Jetbrains Mono, Hack, Inconsolata-Regular, Consolas, 'Courier New', monospace",
     "terminal.integrated.fontSize": 12,
     "terminal.integrated.letterSpacing": 0.9,
-    "workbench.colorTheme": "Catppuccin Frappé",
+    "workbench.colorTheme": "Andromeda",
     "workbench.colorCustomizations": {
-        "[Catppuccin*]": {
-            "terminal.background": "#000000"
+        "[*]": {
+            "terminal.background": "#131313",
+            "terminal.foreground": "#ffffff"
         }
     },
-    "workbench.iconTheme": "material-icon-theme",
-    "workbench.editorAssociations": {
-        "*.ipynb": "jupyter-notebook"
-    },
-    "workbench.startupEditor": "none",
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.startupEditor": "readme",
     "workbench.tree.indent": 16
 }

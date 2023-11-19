@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+if ! [ -x "$(command -v ssh)" ]; then
+    echo "Requires SSH to be installed"
+    exit 1
+fi
+
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh

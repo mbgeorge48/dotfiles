@@ -1,0 +1,36 @@
+#!/bin/sh
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+if ! [ -x "$(command -v git)" ]; then
+    echo "Requires Git to be installed"
+    echo "How did you get to this point?!"
+    exit 1
+fi
+
+if [ "$1" == "setup" ]; then
+    if [ -s ~/.gitconfig ]; then
+        mv ~/.gitconfig archive/ 2>/dev/null
+    fi
+    ln -s git/gitconfig ~/.gitconfig
+
+    mkdir -p ~/personal/
+    if [ -s ~/personal/.gitconfig-personal ]; then
+        mv ~/personal/.gitconfig-personal archive/ 2>/dev/null
+    fi
+    ln -s git/gitconfig-extended ~/personal/.gitconfig-personal
+
+    if [ ! -s ~/personal/dotfiles ]; then
+        ln -s ~/.dotfiles ~/personal/dotfiles
+    fi
+fi
+
+if [ "$1" == "work" ]; then
+    mkdir -p ~/work/
+    if [ -s ~/work/.gitconfig-work ]; then
+        mv ~/work/.gitconfig-work archive/ 2>/dev/null
+    fi
+    cp git/gitconfig-extended ~/work/.gitconfig-work
+fi
