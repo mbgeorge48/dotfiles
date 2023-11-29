@@ -8,6 +8,9 @@
     "[yaml]": {
         "editor.defaultFormatter": "redhat.vscode-yaml"
     },
+    "[shellscript]": {
+        "editor.defaultFormatter": "foxundermoon.shell-format"
+    },
     "catppuccin.bracketMode": "rainbow",
     "diffEditor.ignoreTrimWhitespace": false,
     "editor.codeActionsOnSave": {
@@ -27,7 +30,6 @@
     "editor.renderControlCharacters": true,
     "editor.renderWhitespace": "all",
     "editor.tabSize": 4,
-    "editor.wordWrap": "wordWrapColumn",
     "emmet.triggerExpansionOnTab": true,
     "extensions.autoUpdate": "onlyEnabledExtensions",
     "files.associations": {
@@ -53,8 +55,7 @@
     "terminal.integrated.enableMultiLinePasteWarning": false,
     "terminal.integrated.scrollback": 200000,
     "terminal.integrated.fontFamily": "Jetbrains Mono, Hack, Inconsolata-Regular, Consolas, 'Courier New', monospace",
-    "terminal.integrated.fontSize": 12,
-    "terminal.integrated.letterSpacing": 0.9,
+    "terminal.integrated.fontSize": 13,
     "workbench.colorTheme": "Andromeda",
     "workbench.colorCustomizations": {
         "[*]": {
