@@ -14,8 +14,7 @@
     "catppuccin.bracketMode": "rainbow",
     "diffEditor.ignoreTrimWhitespace": false,
     "editor.codeActionsOnSave": {
-        "source.fixAll": true,
-        "source.sortImports": true
+        "source.fixAll": "explicit"
     },
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.fontFamily": "Jetbrains Mono, Hack, Inconsolata-Regular, Consolas, 'Courier New', monospace",
@@ -60,10 +59,19 @@
     "workbench.colorCustomizations": {
         "[*]": {
             "terminal.background": "#131313",
-            "terminal.foreground": "#ffffff"
+            "terminal.foreground": "#ffffff",
+            "minimap.findMatchHighlight": "#ff00ff"
         }
     },
     "workbench.iconTheme": "vscode-icons",
     "workbench.startupEditor": "readme",
-    "workbench.tree.indent": 16
+    "workbench.tree.indent": 16,
+    "files.exclude": {
+        "__pycache__": true,
+        ".pytest_cache": true,
+        "htmlcov": true,
+        ".env": true,
+        ".venv": true,
+        "coverage": true
+    }
 }
