@@ -8,7 +8,7 @@ function set_versions_python() {
     if [ -s ".python-version" ]; then
         pyenv install --skip-existing
         pyenv exec python -m venv .venv
-        if [ -e .venv ]; then
+        if [ -d .venv ]; then
             .venv/bin/pip install -q --upgrade pip
             if [ -s requirements.txt ]; then
                 .venv/bin/pip install -q -r requirements.txt
