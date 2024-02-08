@@ -27,12 +27,12 @@ if [ -e $HOME/.dotfiles/python/python ]; then
     command -v python >/dev/null 2>&1 && source $HOME/.dotfiles/python/python
 fi
 
-brew list android-studio &>/dev/null
-if [ $? -eq 0 ]; then
-    export ANDROID_HOME=$HOME/Library/Android/sdk
-    export PATH=$ANDROID_HOME/platform-tools:$PATH
-    export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jbr/Contents/Home
-fi
+# brew list android-studio &>/dev/null
+# if [ $? -eq 0 ]; then
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$ANDROID_HOME/platform-tools:$PATH
+export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jbr/Contents/Home
+# fi
 
 export VISUAL=vim
 export EDITOR='$VISUAL'
