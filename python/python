@@ -4,17 +4,42 @@ if [ -e $HOME/.pyenv ]; then
     eval "$(pyenv init -)"
 fi
 
+function activate_venv() {
+    if [ -d .venv ]; then
+        .venv/bin/pip install -q --upgrade pip
+        if [ -s requirements.txt ]; then
+            .venv/bin/pip install -q -r requirements.txt
+        fi
+        source .venv/bin/activate
+    elif [ -d .env ]; then
+        .env/bin/pip install -q --upgrade pip
+        if [ -s requirements.txt ]; then
+            .env/bin/pip install -q -r requirements.txt
+        fi
+        source .env/bin/activate
+    elif [ -d env ]; then
+        env/bin/pip install -q --upgrade pip
+        if [ -s requirements.txt ]; then
+            env/bin/pip install -q -r requirements.txt
+        fi
+        source env/bin/activate
+    elif [ -d venv ]; then
+        venv/bin/pip install -q --upgrade pip
+        if [ -s requirements.txt ]; then
+            venv/bin/pip install -q -r requirements.txt
+        fi
+        source venv/bin/activate
+    else
+        pyenv exec python -m venv .venv
+        activate_venv
+    fi
+}
+
 function set_versions_python() {
     if [ -s ".python-version" ]; then
         pyenv install --skip-existing
         pyenv exec python -m venv .venv
-        if [ -d .venv ]; then
-            .venv/bin/pip install -q --upgrade pip
-            if [ -s requirements.txt ]; then
-                .venv/bin/pip install -q -r requirements.txt
-            fi
-            source .venv/bin/activate
-        fi
+        activate_venv
     fi
 }
 
