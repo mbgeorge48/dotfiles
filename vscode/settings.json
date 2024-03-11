@@ -12,8 +12,8 @@
         "editor.formatOnSave": false
         // "editor.defaultFormatter": "foxundermoon.shell-format"
     },
+    "application.shellEnvironmentResolutionTimeout": 60,
     "catppuccin.bracketMode": "rainbow",
-    "diffEditor.ignoreTrimWhitespace": false,
     "editor.codeActionsOnSave": {
         "source.fixAll": "explicit"
     },
@@ -32,6 +32,18 @@
     "editor.tabSize": 4,
     "emmet.triggerExpansionOnTab": true,
     "extensions.autoUpdate": "onlyEnabledExtensions",
+    "files.exclude": {
+        ".pytest_cache": true,
+        "**/__pycache__": true,
+        "**/coverage": true,
+        "env": true,
+        "htmlcov": true,
+        "**/node_modules/": true,
+        "*node_modules*": true,
+        "*.tsx.html": true,
+        ".cache": true,
+        "**/._*": true
+    },
     "files.associations": {
         "**/templates/*.html": "django-html",
         "**/templates/*": "django-txt"
@@ -51,27 +63,58 @@
     "terminal.external.windowsExec": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell",
     "terminal.integrated.defaultProfile.osx": "zsh",
     "terminal.integrated.defaultProfile.windows": "Command Prompt",
-    "terminal.integrated.enableMultiLinePasteWarning": false,
+    "terminal.integrated.enableMultiLinePasteWarning": "auto",
     "terminal.integrated.scrollback": 200000,
     "terminal.integrated.fontFamily": "Jetbrains Mono, Hack, Inconsolata-Regular, Consolas, 'Courier New', monospace",
     "terminal.integrated.fontSize": 13,
     "workbench.colorTheme": "Andromeda",
     "workbench.colorCustomizations": {
         "[*]": {
+            "activityBar.border": "#131313",
+            "activityBarBadge.background": "#ff00ff",
+            "activityBarBadge.foreground": "#ffffff",
+            "activityBar.foreground": "#ffffff",
+            "activityBar.background": "#131313",
+            "titleBar.activeForeground": "#ffffff",
+            "titleBar.activeBackground": "#131313",
+            "badge.background": "#ff00ff",
+            "badge.foreground": "#ffffff",
+            "editorGroup.dropBackground": "#131313aa",
+            "editorGroupHeader.tabsBackground": "#131313aa",
+            "editorGroupHeader.tabsBorder": "#131313aa",
+            "editorLineNumber.activeForeground": "#ff00ff",
+            "editorLineNumber.foreground": "#f3f3f3",
+            "icon.foreground": "#ffffff",
+            "input.background": "#131313",
+            "input.foreground": "#ffffff",
+            "gitDecoration.addedResourceForeground": "#ff00ff",
+            "gitDecoration.conflictingResourceForeground": "#ff3333",
+            "gitDecoration.modifiedResourceForeground": "#00ff66",
+            "gitDecoration.untrackedResourceForeground": "#0066ff",
+            "list.errorForeground": "#ff3333",
+            "list.inactiveSelectionBackground": "#131313aa",
+            "list.inactiveSelectionForeground": "#FFA500",
+            "list.warningForeground": "#ffff33",
+            "minimap.background": "#131313",
+            "minimap.errorHighlight": "#ff3333",
+            "minimap.findMatchHighlight": "#ff00ff55",
+            "minimap.selectionHighlight": "#ffffff55",
+            "minimap.warningHighlight": "#ffff33",
+            "scrollbar.shadow": "#131313",
+            "scrollbarSlider.background": "#131313aa",
+            "scrollbarSlider.hoverBackground": "#ffffffaa",
+            "sideBar.border": "#131313",
+            "sideBar.foreground": "#ffffff",
+            "tab.activeForeground": "#ffffff",
+            "tab.inactiveForeground": "#a0a0a0",
             "terminal.background": "#131313",
             "terminal.foreground": "#ffffff",
-            "minimap.findMatchHighlight": "#ff00ff"
+            "tree.indentGuidesStroke": "#ff6600",
+            "widget.border": "#ffffff"
         }
     },
     "workbench.iconTheme": "vscode-icons",
     "workbench.startupEditor": "readme",
     "workbench.tree.indent": 16,
-    "files.exclude": {
-        ".pytest_cache": true,
-        "**/__pycache__": true,
-        "**/coverage": true,
-        "env": true,
-        "htmlcov": true
-    },
-    "application.shellEnvironmentResolutionTimeout": 60
+    "diffEditor.ignoreTrimWhitespace": false
 }
