@@ -91,3 +91,9 @@
 
 [includeIf "gitdir:~/personal/"]
 	path = ~/personal/.gitconfig-personal
+[rerere]
+	enabled = true
+[column]
+	ui = auto
+[branch]
+	sort = -committerdate

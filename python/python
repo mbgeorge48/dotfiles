@@ -43,6 +43,6 @@ function set_versions_python() {
     fi
 }
 
-function chpwd {
+function chpwd() {
     set_versions_python
 }
