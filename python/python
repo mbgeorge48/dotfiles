@@ -38,10 +38,11 @@ function activate_venv() {
 function set_versions_python() {
     if [ -s ".python-version" ]; then
         pyenv install --skip-existing
-        pyenv exec python -m venv .venv
         activate_venv
     fi
 }
+
+set_versions_python
 
 function chpwd() {
     set_versions_python
