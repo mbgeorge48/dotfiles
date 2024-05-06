@@ -7,4 +7,5 @@
 
 [commit]
 	gpgsign = true
-
+[core]
+    sshCommand = "ssh -i ~/.ssh/id_mbgeorge48"
