@@ -42,7 +42,7 @@ function set_versions_python() {
     fi
 }
 
-set_versions_python
+# set_versions_python
 
 function chpwd() {
     set_versions_python
