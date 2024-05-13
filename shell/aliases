@@ -18,7 +18,7 @@ alias grep='grep --color=auto'
 alias ls='ls -FG --color=auto'
 alias ll='ls -ahl'
 alias grep_history='history | grep'
-alias this_branch='git rev-parse --abbrev-ref HEAD'
+alias this_branch='git branch --show-current'
 alias cdl='cd_list_dir'
 alias echo_scp='echo $USER@$(hostname -s):$PWD'
 
