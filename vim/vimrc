@@ -28,7 +28,7 @@ set autoindent
 set modelines=0
 
 " Show line numbers
-set number
+@REM set number
 
 " Show file stats
 set ruler
