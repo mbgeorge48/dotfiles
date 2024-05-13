@@ -30,6 +30,7 @@ function activate_venv() {
         fi
         source venv/bin/activate
     else
+        echo "No virtual env found, setting up .venv now"
         pyenv exec python -m venv .venv
         activate_venv
     fi
@@ -38,6 +39,7 @@ function activate_venv() {
 function set_versions_python() {
     if [ -s ".python-version" ]; then
         pyenv install --skip-existing
+        echo "Activating virtual env"
         activate_venv
     fi
 }
