@@ -18,7 +18,7 @@
         "source.fixAll": "explicit"
     },
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.fontFamily": "Jetbrains Mono, Hack, Inconsolata-Regular, Consolas, 'Courier New', monospace",
+    "editor.fontFamily": "Comic Code, Jetbrains Mono, Hack, Inconsolata-Regular, Consolas, monospace",
     "editor.fontLigatures": false,
     "editor.fontSize": 14,
     "editor.formatOnSave": true,
@@ -65,11 +65,45 @@
     "terminal.integrated.defaultProfile.windows": "Command Prompt",
     "terminal.integrated.enableMultiLinePasteWarning": "auto",
     "terminal.integrated.scrollback": 200000,
-    "terminal.integrated.fontFamily": "Jetbrains Mono, Hack, Inconsolata-Regular, Consolas, 'Courier New', monospace",
+    "terminal.integrated.fontFamily": "Comic Code ,Jetbrains Mono, Hack, Inconsolata-Regular, Consolas, monospace",
     "terminal.integrated.fontSize": 13,
-    "workbench.colorTheme": "Andromeda",
+    "window.autoDetectColorScheme": true,
+    "workbench.preferredDarkColorTheme": "Andromeda",
+    "workbench.preferredLightColorTheme": "Relax Light",
     "workbench.colorCustomizations": {
-        "[*]": {
+        "[*]": {},
+        "[Relax Light]": {
+            "activityBarBadge.background": "#ff00ff",
+            "activityBarBadge.foreground": "#ffffff",
+            "activityBar.background": "#faf1d1aa",
+            "activityBar.foreground": "#131313",
+            "activityBar.inactiveForeground": "#131313",
+            "titleBar.activeForeground": "#ffffff",
+            "editorGroup.dropBackground": "#faf1d1aa",
+            "editorGroupHeader.tabsBackground": "#faf1d1aa",
+            "editorGroupHeader.tabsBorder": "#faf1d1aa",
+            "editorLineNumber.activeForeground": "#ff00ff",
+            "editorLineNumber.foreground": "#131313",
+            "icon.foreground": "#131313",
+            "gitDecoration.addedResourceForeground": "#ff00ff",
+            "gitDecoration.conflictingResourceForeground": "#ff3333",
+            "gitDecoration.modifiedResourceForeground": "#008033",
+            "gitDecoration.untrackedResourceForeground": "#0066ff",
+            "list.errorForeground": "#ff3333",
+            "minimap.background": "#faf1d1",
+            "minimap.errorHighlight": "#ff3333",
+            "minimap.findMatchHighlight": "#ff00ff55",
+            "minimap.selectionHighlight": "#13131355",
+            "minimap.warningHighlight": "#ffff33",
+            "scrollbar.shadow": "#ba9512",
+            "sideBar.foreground": "#131313",
+            "tab.activeForeground": "#131313",
+            "terminal.background": "#131313",
+            "terminal.foreground": "#ffffff",
+            "tree.indentGuidesStroke": "#ff6600",
+            "widget.border": "#ffffff"
+        },
+        "[Andromeda]": {
             "activityBar.border": "#131313",
             "activityBarBadge.background": "#ff00ff",
             "activityBarBadge.foreground": "#ffffff",
@@ -77,7 +111,6 @@
             "activityBar.foreground": "#ffffff",
             "activityBar.background": "#131313",
             "titleBar.activeForeground": "#ffffff",
-            // "titleBar.activeBackground": "#131313",
             "badge.background": "#ff00ff",
             "badge.foreground": "#ffffff",
             "editorGroup.dropBackground": "#131313aa",
@@ -174,5 +207,6 @@
             "name": "Vue Green",
             "value": "#42b883"
         }
-    ]
+    ],
+    "vsicons.dontShowNewVersionMessage": true
 }
