@@ -1,7 +1,6 @@
 #!/bin/sh
 
-set -e
-
+set -euo pipefail
 cd "$(dirname "$0")/.."
 
 if ! [ -x "$(command -v gpg)" ]; then
@@ -12,3 +11,19 @@ fi
 gpg --list-secret-keys --keyid-format LONG
 mkdir -p ~/.gnupg
 chmod 700 ~/.gnupg
+
+if [ "$PLATFORM" = "wsl" ]; then
+    # Tell gpg-agent to allow loopback pinentry
+    echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
+
+    # Tell gpg to use loopback mode when signing
+    echo "use-agent" >> ~/.gnupg/gpg.conf
+    echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
+
+    # Tell gpg-agent to let to time out on keys to 2 hours
+    echo "default-cache-ttl 7200" >> ~/.gnupg/gpg-agent.conf
+    echo "max-cache-ttl 7200" >> ~/.gnupg/gpg-agent.conf
+
+    # Restart gpg-agent
+    gpgconf --kill gpg-agent
+fi
