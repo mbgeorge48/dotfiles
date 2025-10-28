@@ -9,3 +9,18 @@ install_package() {
         choco install -y "$@"
     fi
 }
+
+
+# Detect platform
+if grep -qi microsoft /proc/version; then
+    PLATFORM="wsl"
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    PLATFORM="mac"
+elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    PLATFORM="linux"
+else
+    PLATFORM="windows"
+fi
+echo "Detected platform: $PLATFORM"
+
+export PLATFORM

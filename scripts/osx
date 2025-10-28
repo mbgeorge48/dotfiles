@@ -1,15 +1,16 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-set -e
-
+set -euo pipefail
 cd "$(dirname "$0")/.."
 
-if ! [ "$(uname -s)" = "Darwin" ]; then
+source scripts/common
+
+if ! [ "$PLATFORM" = "mac" ]; then
     echo "Error: script only runs on Mac"
     exit 1
 fi
 
-echo "Dock setup"
+echo "### Dock setup ###"
 defaults read com.apple.dock >~/.dotfiles/archive/mac_os_dock
 
 defaults write com.apple.dock orientation left
@@ -22,7 +23,7 @@ defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -int 0
 killall Dock
 
-echo "Finder setup"
+echo "### Finder setup ###"
 defaults read com.apple.finder >~/.dotfiles/archive/mac_os_finder
 
 defaults write com.apple.finder ShowRecentTags -bool false
@@ -34,27 +35,27 @@ defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool false
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 killall finder
 
-echo "Screenshots setup"
+echo "### Screenshots setup ###"
 defaults read com.apple.screencapture >~/.dotfiles/archive/mac_os_screencapture
 
 defaults write com.apple.screencapture type jpg
 mkdir ~/Pictures/screenshots
 defaults write com.apple.screencapture location ~/Pictures/screenshots
 
-echo "Autocorrect setup"
+echo "### Autocorrect setup ###"
 defaults read NSGlobalDomain >~/.dotfiles/archive/mac_os_autocorrect
 
 defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
 defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
 defaults write NSGlobalDomain WebAutomaticSpellingCorrectionEnabled -bool false
 
-echo "Terminal setup"
+echo "### Terminal setup ###"
 defaults read com.apple.terminal >~/.dotfiles/archive/mac_os_terminal
 
 defaults write com.apple.terminal "Startup Window Settings" "Pro"
 defaults write com.apple.terminal "Default Window Settings" "Pro"
 
-echo "Keyboard and Mouse setup"
+echo "### Keyboard and Mouse setup ###"
 defaults read -g com.apple.swipescrolldirection >~/.dotfiles/archive/mac_os_swipescrolldirection
 defaults read -g KeyRepeat >~/.dotfiles/archive/mac_os_keyboard
 defaults read -g InitialKeyRepeat >>~/.dotfiles/archive/mac_os_keyboard

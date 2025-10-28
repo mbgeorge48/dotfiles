@@ -1,10 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
 ARCHIVE_DIR="$HOME/.dotfiles/archive"
 mkdir -p "$ARCHIVE_DIR"
+
+source scripts/common
 
 if [[ "${1:-}" == "setup" ]]; then
     echo "Setting up shell configuration for $PLATFORM..."
@@ -16,6 +18,13 @@ if [[ "${1:-}" == "setup" ]]; then
             mv "$f" "$ARCHIVE_DIR/" 2>/dev/null || true
         fi
     done
+
+    # ensure zsh is installed
+    install_package zsh
+    ZSH_PATH="$(which zsh)"
+    if [[ "$SHELL" != "$ZSH_PATH" ]]; then
+        chsh -s "$ZSH_PATH" 2>/dev/null || echo "⚠️ Could not change shell. You may need to do it manually."
+    fi
 
     DOT_PROFILE="$HOME/.dotfiles/shell/profile"
     if [[ ! -f "$DOT_PROFILE" ]]; then
@@ -45,12 +54,6 @@ if [[ "${1:-}" == "setup" ]]; then
         echo "Shell profile source already present in $RC_FILE"
     fi
 
-    # ensure zsh is installed
-    install_package zsh
-    ZSH_PATH="$(which zsh)"
-    if [[ "$SHELL" != "$ZSH_PATH" ]]; then
-        chsh -s "$ZSH_PATH" 2>/dev/null || echo "⚠️ Could not change shell. You may need to do it manually."
-    fi
 
 fi
 

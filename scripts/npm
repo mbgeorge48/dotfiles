@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 set -euo pipefail
 cd "$(dirname "$0")/.."
@@ -8,7 +8,7 @@ mkdir -p "$ARCHIVE_DIR"
 
 if ! command -v nvm >/dev/null 2>&1; then
     echo "Installing nvm..."
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.8/install.sh | bash
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 fi
 
 # Load nvm for this script run

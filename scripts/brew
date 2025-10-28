@@ -1,8 +1,10 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 set -euo pipefail
 cd "$(dirname "$0")/.."
 ACTION="${1:-}"
+
+source scripts/common
 
 if ! [ "$PLATFORM" = "mac" ]; then
     echo "Error: script only runs on Mac"

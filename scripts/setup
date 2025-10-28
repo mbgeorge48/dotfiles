@@ -1,20 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-# Detect platform
-if grep -qi microsoft /proc/version; then
-    PLATFORM="wsl"
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-    PLATFORM="mac"
-elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    PLATFORM="linux"
-else
-    PLATFORM="windows"
-fi
-echo "Detected platform: $PLATFORM"
-
+source scripts/common
 mkdir -p ~/personal/
 
 if [ "$PLATFORM" = "mac" ]; then
@@ -39,23 +28,20 @@ if [ "$1" == "work" ]; then
     scripts/git work
 fi
 
-echo "Vim"
+echo "### Vim ###"
 scripts/vim setup
 
-echo "VScode"
+echo "### VScode ###"
 scripts/vscode setup
 
-if ! [ "$(uname -s)" = "Darwin" ]; then
-    echo "Pyenv"
-    scripts/pyenv
-    echo "NPM"
-    scripts/npm
+echo "### Pyenv ###"
+scripts/pyenv
+echo "### NPM ###"
+scripts/npm
 
-fi
-
-echo "GPG"
+echo "### GPG ###"
 scripts/gpg
-echo "SSH"
+echo "### SSH ###"
 scripts/ssh
 
 if ! [ -L ~/personal/dotfiles ]; then

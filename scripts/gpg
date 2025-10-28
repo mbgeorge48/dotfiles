@@ -1,7 +1,9 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 set -euo pipefail
 cd "$(dirname "$0")/.."
+
+source scripts/common
 
 if ! [ -x "$(command -v gpg)" ]; then
     echo "Requires GPG to be installed"
