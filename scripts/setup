@@ -18,7 +18,8 @@ scripts/shell setup
 echo "### Git ###"
 scripts/git setup
 
-if [ "$1" == "work" ]; then
+ACTION="${1:-}"
+if [ "$ACTION" = "work" ]; then
     mkdir -p ~/work/
     custom_aliases=".custom_aliases"
     if [ -s ~/$custom_aliases ]; then
