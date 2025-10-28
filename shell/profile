@@ -1,41 +1,44 @@
-#!/bin/sh
+# aliases
+[ -f "$HOME/.dotfiles/shell/aliases" ] && source "$HOME/.dotfiles/shell/aliases"
 
-source $HOME/.dotfiles/shell/aliases
-case $SHELL in
-*'zsh'*)
-    source $HOME/.dotfiles/shell/zsh_prompt
-    source $HOME/.dotfiles/shell/zsh_extras
-    ;;
-*'bash'*)
-    source $HOME/.dotfiles/shell/bash_prompt
-    ;;
-esac
+# prompt
+if [ -n "$ZSH_VERSION" ]; then
+    source "$HOME/.dotfiles/shell/zsh_prompt"
+    source "$HOME/.dotfiles/shell/zsh_extras"
+elif [ -n "$BASH_VERSION" ]; then
+    source "$HOME/.dotfiles/shell/bash_prompt"
+fi
 
-# Brew
+# Brew/OpenSSL
 export CPPFLAGS=-I/usr/local/opt/openssl/include
 export LDFLAGS=-L/usr/local/opt/openssl/lib
 
 # GPG
-export GPG_TTY=$(tty)
-
-if [ -e $HOME/.dotfiles/node/nvm ]; then
-    source $HOME/.dotfiles/node/nvm
+if command -v tty >/dev/null 2>&1; then
+    export GPG_TTY=$(tty)
 fi
 
-if [ -e $HOME/.dotfiles/python/python ]; then
-    command -v python3 >/dev/null 2>&1 && source $HOME/.dotfiles/python/python
-    command -v python >/dev/null 2>&1 && source $HOME/.dotfiles/python/python
+# NVM
+if [ -f "$HOME/.dotfiles/node/nvm" ]; then
+    source "$HOME/.dotfiles/node/nvm"
 fi
 
-# brew list android-studio &>/dev/null
-# if [ $? -eq 0 ]; then
-export ANDROID_HOME=$HOME/Library/Android/sdk
-export PATH=$ANDROID_HOME/platform-tools:$PATH
-export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jbr/Contents/Home
-# fi
+# Python / Pyenv
+if [ -f "$HOME/.dotfiles/python/python" ]; then
+    command -v python3 >/dev/null 2>&1 && source "$HOME/.dotfiles/python/python"
+    command -v python >/dev/null 2>&1 && source "$HOME/.dotfiles/python/python"
+fi
 
+# Android / Java
+ANDROID_HOME="$HOME/Library/Android/sdk"
+[ -d "$ANDROID_HOME" ] && export PATH="$ANDROID_HOME/platform-tools:$PATH"
+JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+[ -d "$JAVA_HOME" ] && export JAVA_HOME
+
+# Editors
 export VISUAL=vim
-export EDITOR='$VISUAL'
+export EDITOR="$VISUAL"
 
+# Pyenv & NVM root
 export PYENV_ROOT="$HOME/.pyenv"
 export NVM_DIR="$HOME/.nvm"

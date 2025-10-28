@@ -45,9 +45,11 @@ if [[ "$ACTION" == "sync" ]]; then
     echo "Saved current extensions to $EXT_FILE"
 else
     if [[ -f "$EXT_FILE" ]]; then
-        echo "Installing extensions from $EXT_FILE..."
-        while read -r ext; do
-            code --install-extension "$ext" --force
-        done <"$EXT_FILE"
+        echo "Installing VSCode extensions from $EXT_FILE..."
+        while read -r line; do
+            # Skip empty lines and comments
+            [[ -z "$line" || "$line" =~ ^# ]] && continue
+            eval "$line"
+        done < "$EXT_FILE"
     fi
 fi
