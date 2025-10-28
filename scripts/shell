@@ -1,56 +1,70 @@
 #!/bin/bash
 
-set -e
-
+set -euo pipefail
 cd "$(dirname "$0")/.."
 
-if [ "$1" == "setup" ]; then
-    if [ -s ~/.zprofile ]; then
-        mv ~/.zprofile ~/.dotfiles/archive/ 2>/dev/null
-    fi
-    if [ -s ~/.bash_profile ]; then
-        mv ~/.bash_profile ~/.dotfiles/archive/ 2>/dev/null
-    fi
-    if [ -s ~/.zsh_prompt ]; then
-        mv ~/.zsh_prompt ~/.dotfiles/archive/ 2>/dev/null
-    fi
-    if [ -s ~/.bash_prompt ]; then
-        mv ~/.bash_prompt ~/.dotfiles/archive/ 2>/dev/null
-    fi
-    source_command="source ~/.dotfiles/shell/profile"
-    case $SHELL in
-    *'zsh'*)
-        if [ -x "$(grep -Fxq "$source_command" ~/.zshrc)" ]; then
-            echo $source_command >>~/.zshrc
+ARCHIVE_DIR="$HOME/.dotfiles/archive"
+mkdir -p "$ARCHIVE_DIR"
+
+if [[ "${1:-}" == "setup" ]]; then
+    echo "Setting up shell configuration for $PLATFORM..."
+
+    # Archive old files if they exist
+    for f in ~/.zprofile ~/.bash_profile ~/.zsh_prompt ~/.bash_prompt; do
+        if [[ -s "$f" ]]; then
+            echo "Archiving $f → $ARCHIVE_DIR"
+            mv "$f" "$ARCHIVE_DIR/" 2>/dev/null || true
         fi
-        ;;
-    *'bash'*)
-        if [ -x "$(grep -Fxq "$source_command" ~/.bashrc)" ]; then
-            echo $source_command >>~/.bashrc
-        fi
-        ;;
+    done
+
+    DOT_PROFILE="$HOME/.dotfiles/shell/profile"
+    if [[ ! -f "$DOT_PROFILE" ]]; then
+        echo "Warning: $DOT_PROFILE not found."
+    fi
+
+    SOURCE_CMD="source $DOT_PROFILE"
+    case "$(basename "${SHELL:-}")" in
+    zsh) TARGET="$HOME/.zshrc" ;;
+    bash) TARGET="$HOME/.bashrc" ;;
+    *) TARGET="$HOME/.bashrc" ;; # fallback
     esac
+    touch "$TARGET"
+
+    source_command='source ~/.dotfiles/shell/profile'
+    if [[ -e "$HOME/.zshrc" ]]; then
+        RC_FILE="$HOME/.zshrc"
+    else
+        RC_FILE="$HOME/.bashrc"
+    fi
+
+    mkdir -p "$(dirname "$RC_FILE")"
+    if ! grep -Fxq "$source_command" "$RC_FILE"; then
+        echo "$source_command" >>"$RC_FILE"
+        echo "Added shell profile source to $RC_FILE"
+    else
+        echo "Shell profile source already present in $RC_FILE"
+    fi
+
+    # ensure zsh is installed
+    install_package zsh
+    ZSH_PATH="$(which zsh)"
+    if [[ "$SHELL" != "$ZSH_PATH" ]]; then
+        chsh -s "$ZSH_PATH" 2>/dev/null || echo "⚠️ Could not change shell. You may need to do it manually."
+    fi
+
 fi
 
-if [ "$1" == "update" ]; then
-    if ! [ "$(uname -s)" = "Darwin" ]; then
-        if [ -x "$(command -v apt-get)" ]; then
-            if [ -x "$(command -v sudo)" ]; then
-                sudo apt-get update -y
-                exit 0
-            else
-                apt-get update -y
-                exit 0
-            fi
-        fi
-        if [ -x "$(command -v yum)" ]; then
-            if [ -x "$(command -v sudo)" ]; then
-                sudo yum update -y
-                exit 0
-            else
-                yum update -y
-                exit 0
-            fi
-        fi
-    fi
+if [[ "${1:-}" == "update" ]]; then
+    echo "🔄 Updating shell-related packages for $PLATFORM..."
+    case "$PLATFORM" in
+    mac)
+        brew update
+        ;;
+    linux | wsl)
+        sudo apt-get update -y
+        ;;
+    windows)
+        echo "Windows shell updates are handled via Chocolatey or manually."
+        ;;
+    esac
 fi

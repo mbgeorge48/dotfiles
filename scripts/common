@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+install_package() {
+    if [[ "$PLATFORM" == "mac" ]]; then
+        brew install "$@"
+    elif [[ "$PLATFORM" == "linux" || "$PLATFORM" == "wsl" ]]; then
+        sudo apt-get install -y "$@"
+    elif [[ "$PLATFORM" == "windows" ]]; then
+        choco install -y "$@"
+    fi
+}

@@ -1,20 +1,24 @@
 #!/bin/sh
 
-set -e
-
+set -euo pipefail
 cd "$(dirname "$0")/.."
 
-if [ "$(uname -s)" = "Darwin" ]; then
-    echo "Error: script only runs on none Mac Unix machines"
-    exit 1
-fi
+ARCHIVE_DIR="$HOME/.dotfiles/archive"
+mkdir -p "$ARCHIVE_DIR"
 
-if ! [ -x "$(command -v sudo)" ]; then
-    apt-get install make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev -y
-else
-    sudo apt-get install make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev -y
-fi
+if ! command -v pyenv >/dev/null 2>&1; then
+    echo "Installing pyenv..."
+    if [[ "$PLATFORM" == "mac" ]]; then
+        install_package pyenv
+    else
+        # Linux / WSL dependencies
+        install_package build-essential libssl-dev zlib1g-dev libbz2-dev \
+            libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev \
+            libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev
 
-if ! [ -s ~/.pyenv ]; then
-    curl https://pyenv.run | bash
+        # Install pyenv if ~/.pyenv doesn't exist
+        if ! [ -d "$HOME/.pyenv" ]; then
+            git clone https://github.com/pyenv/pyenv.git "$HOME/.pyenv"
+        fi
+    fi
 fi

@@ -1,36 +1,53 @@
 #!/bin/bash
 
-set -e
-
+set -euo pipefail
 cd "$(dirname "$0")/.."
+ACTION="${1:-}"
 
-if ! [ -x "$(command -v code)" ]; then
-    echo "Requires VScode to be installed"
+ARCHIVE_DIR="$HOME/.dotfiles/archive"
+mkdir -p "$ARCHIVE_DIR"
+
+if ! command -v code >/dev/null 2>&1; then
+    echo "VS Code CLI 'code' not found. Please install VS Code first."
     exit 1
 fi
 
-if [ "$1" == "setup" ]; then
-    if [ "$(uname -s)" = "Darwin" ]; then
-        if [ -s ~/Library/Application\ Support/Code/User/settings.json ]; then
-            mv ~/Library/Application\ Support/Code/User/settings.json /archive/ 2>/dev/null
+DOT_VSCODE="$HOME/.dotfiles/vscode"
+if [[ "$ACTION" == "setup" ]]; then
+    if [[ "$PLATFORM" == "mac" ]]; then
+        SETTINGS_DIR="$HOME/Library/Application Support/Code/User"
+        SETTINGS_FILE="$SETTINGS_DIR/settings.json"
+        mkdir -p "$SETTINGS_DIR"
+
+        # Archive existing settings
+        if [[ -e "$SETTINGS_FILE" ]]; then
+            mv "$SETTINGS_FILE" "$ARCHIVE_DIR/" 2>/dev/null || true
         fi
 
-        if [ -L ~/Library/Application\ Support/Code/User/settings.json ]; then
-            rm ~/Library/Application\ Support/Code/User/settings.json
-        fi
-        ln -s $HOME/.dotfiles/vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
+        # Symlink settings
+        ln -sf "$DOT_VSCODE/settings.json" "$SETTINGS_FILE"
+        echo "Linked VS Code settings to $SETTINGS_FILE"
 
-    else
-        echo "Need to manually create the symlink for the settings file on non Mac systems"
-        echo "If using WSL then the settings will live somewhere near here"
-        echo "/mnt/c/Users/USERNAME/AppData/Roaming/Code/User/settings.json"
-        echo "You'll have to copy the file into place" # Until I find a way to link them properly
-        # Unsure on the default unix locations
+    elif [[ "$PLATFORM" == "linux" || "$PLATFORM" == "wsl" ]]; then
+        echo "Non-macOS systems require manual VS Code settings symlink:"
+        if [[ "$PLATFORM" == "linux" ]]; then
+            echo "Linux: ~/.config/Code/User/settings.json"
+        else
+            echo "WSL: /mnt/c/Users/USERNAME/AppData/Roaming/Code/User/settings.json"
+        fi
     fi
 fi
 
-if [ "$1" == "sync" ]; then
-    code --list-extensions | xargs -L 1 echo code --install-extension >vscode/extensions
+EXT_FILE="$DOT_VSCODE/extensions"
+if [[ "$ACTION" == "sync" ]]; then
+    # Dump current extensions to vscode/extensions
+    code --list-extensions >"$EXT_FILE"
+    echo "Saved current extensions to $EXT_FILE"
 else
-    . vscode/extensions | grep -v "Installing extensions"
+    if [[ -f "$EXT_FILE" ]]; then
+        echo "Installing extensions from $EXT_FILE..."
+        while read -r ext; do
+            code --install-extension "$ext" --force
+        done <"$EXT_FILE"
+    fi
 fi

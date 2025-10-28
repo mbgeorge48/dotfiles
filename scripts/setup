@@ -1,29 +1,41 @@
 #!/bin/bash
 
-set -e
-
+set -euo pipefail
 cd "$(dirname "$0")/.."
+
+# Detect platform
+if grep -qi microsoft /proc/version; then
+    PLATFORM="wsl"
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    PLATFORM="mac"
+elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    PLATFORM="linux"
+else
+    PLATFORM="windows"
+fi
+echo "Detected platform: $PLATFORM"
 
 mkdir -p ~/personal/
 
-echo "Shell"
-scripts/shell update
-scripts/shell setup
-
-if [ "$(uname -s)" = "Darwin" ]; then
-    echo "Brew"
+if [ "$PLATFORM" = "mac" ]; then
+    echo "### Brew ###"
     scripts/brew
 fi
 
-echo "Git"
+echo "### Shell ###"
+scripts/shell update
+scripts/shell setup
+
+echo "### Git ###"
 scripts/git setup
 
 if [ "$1" == "work" ]; then
+    mkdir -p ~/work/
     custom_aliases=".custom_aliases"
     if [ -s ~/$custom_aliases ]; then
         touch ~/.custom_aliases
     fi
-    echo "Work Git"
+    echo "### Work Git ###"
     scripts/git work
 fi
 

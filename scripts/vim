@@ -1,21 +1,24 @@
 #!/bin/bash
 
-set -e
-
+set -euo pipefail
 cd "$(dirname "$0")/.."
+ACTION="${1:-}"
+
+ARCHIVE_DIR="$HOME/.dotfiles/archive"
+mkdir -p "$ARCHIVE_DIR"
 
 if ! [ -x "$(command -v vim)" ]; then
     echo "Requires Vim to be installed"
     exit 1
 fi
 
-if [ "$1" == "setup" ]; then
-    if [ -s ~/.vimrc ]; then
-        mv ~/.vimrc archive/ 2>/dev/null
+if [[ "$ACTION" == "setup" ]]; then
+    if [ -s $HOME/.vimrc ]; then
+        mv $HOME/.vimrc "$ARCHIVE_DIR/" 2>/dev/null
     fi
 
-    if [ -L ~/.vimrc ]; then
-        rm ~/.vimrc
+    if [ -L $HOME/.vimrc ]; then
+        rm $HOME/.vimrc
     fi
     ln -s $HOME/.dotfiles/vim/vimrc ~/.vimrc
 fi
