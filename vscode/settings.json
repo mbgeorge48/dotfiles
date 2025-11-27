@@ -1,5 +1,6 @@
 {
     "[django-html]": {
+        "editor.defaultFormatter": "monosans.djlint",
         "editor.formatOnSave": false
     },
     "[python]": {
@@ -24,7 +25,7 @@
     "editor.formatOnSave": true,
     "editor.guides.bracketPairs": true,
     "editor.largeFileOptimizations": true,
-    "editor.minimap.autohide": true,
+    "editor.minimap.autohide": "mouseover",
     "editor.minimap.enabled": true,
     "editor.minimap.renderCharacters": false,
     "editor.renderControlCharacters": true,
@@ -63,7 +64,7 @@
     "terminal.external.windowsExec": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell",
     "terminal.integrated.defaultProfile.osx": "zsh",
     "terminal.integrated.defaultProfile.windows": "Command Prompt",
-    "terminal.integrated.enableMultiLinePasteWarning": "auto",
+    "terminal.integrated.enableMultiLinePasteWarning": "never",
     "terminal.integrated.scrollback": 200000,
     "terminal.integrated.fontFamily": "Comic Code ,Jetbrains Mono, Hack, Inconsolata-Regular, Consolas, monospace",
     "terminal.integrated.fontSize": 13,
@@ -147,7 +148,7 @@
             "widget.border": "#ffffff"
         }
     },
-    "workbench.iconTheme": "vscode-icons",
+    "workbench.iconTheme": "material-icon-theme",
     "workbench.startupEditor": "readme",
     "workbench.tree.indent": 16,
     "diffEditor.ignoreTrimWhitespace": false,
@@ -155,6 +156,10 @@
     "scm.showOutgoingChanges": "always",
     "scm.showIncomingChanges": "always",
     "githubPullRequests.queries": [
+        {
+            "label": "Local Pull Request Branches",
+            "query": "default"
+        },
         {
             "label": "Waiting For My Review",
             "query": "is:open review-requested:${user}"
@@ -166,6 +171,10 @@
         {
             "label": "Created By Me",
             "query": "is:open author:${user}"
+        },
+        {
+            "label": "All Open",
+            "query": "default"
         }
     ],
     "githubPullRequests.pullBranch": "never",
@@ -208,5 +217,12 @@
             "value": "#42b883"
         }
     ],
-    "vsicons.dontShowNewVersionMessage": true
+    "vsicons.dontShowNewVersionMessage": true,
+    "djlint.showInstallError": false,
+    "terminal.integrated.stickyScroll.enabled": false,
+    "docker.extension.enableComposeLanguageServer": false,
+    "workbench.productIconTheme": "fluent-icons",
+    "workbench.activityBar.location": "bottom",
+    "workbench.editor.openPositioning": "first",
+    "workbench.editor.revealIfOpen": true
 }
