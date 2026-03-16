@@ -13,16 +13,19 @@
         "editor.formatOnSave": false,
         "editor.defaultFormatter": "foxundermoon.shell-format"
     },
+    "[typescriptreact]": {
+        "editor.formatOnSave": false
+    },
     "application.shellEnvironmentResolutionTimeout": 60,
     "catppuccin.bracketMode": "rainbow",
     "editor.codeActionsOnSave": {
         "source.fixAll": "explicit"
     },
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    // "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.fontFamily": "Comic Code, Jetbrains Mono, Hack, Inconsolata-Regular, Consolas, monospace",
     "editor.fontLigatures": false,
     "editor.fontSize": 14,
-    "editor.formatOnSave": true,
+    // "editor.formatOnSave": true,
     "editor.guides.bracketPairs": true,
     "editor.largeFileOptimizations": true,
     "editor.minimap.autohide": "mouseover",
@@ -178,7 +181,7 @@
         }
     ],
     "githubPullRequests.pullBranch": "never",
-    "workbench.sideBar.location": "right",
+    "workbench.sideBar.location": "left",
     "peacock.favoriteColors": [
         {
             "name": "Angular Red",
@@ -217,12 +220,13 @@
             "value": "#42b883"
         }
     ],
-    "vsicons.dontShowNewVersionMessage": true,
     "djlint.showInstallError": false,
     "terminal.integrated.stickyScroll.enabled": false,
     "docker.extension.enableComposeLanguageServer": false,
     "workbench.productIconTheme": "fluent-icons",
-    "workbench.activityBar.location": "bottom",
     "workbench.editor.openPositioning": "first",
-    "workbench.editor.revealIfOpen": true
+    "workbench.editor.revealIfOpen": true,
+    "python.analysis.typeCheckingMode": "basic",
+    "python.createEnvironment.trigger": "off",
+    "eslint.alwaysShowStatus": true
 }
