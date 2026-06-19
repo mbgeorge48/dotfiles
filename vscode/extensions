@@ -1,38 +1,37 @@
-code --install-extension adpyke.codesnap
-code --install-extension batisteo.vscode-django
-code --install-extension bierner.color-info
-code --install-extension bradlc.vscode-tailwindcss
-code --install-extension Catppuccin.catppuccin-vsc
-code --install-extension dbaeumer.vscode-eslint
-code --install-extension eamodio.gitlens
-code --install-extension EditorConfig.EditorConfig
-code --install-extension EliverLara.andromeda
-code --install-extension eriklynd.json-tools
-code --install-extension esbenp.prettier-vscode
-code --install-extension formulahendry.auto-rename-tag
-code --install-extension foxundermoon.shell-format
-code --install-extension heybourn.headwind
-code --install-extension liviuschera.noctis
-code --install-extension mechatroner.rainbow-csv
-code --install-extension ms-azuretools.vscode-docker
-code --install-extension ms-python.black-formatter
-code --install-extension ms-python.flake8
-code --install-extension ms-python.isort
-code --install-extension ms-python.python
-code --install-extension ms-python.vscode-pylance
-code --install-extension ms-vscode-remote.remote-containers
-code --install-extension ms-vscode-remote.remote-ssh
-code --install-extension ms-vscode-remote.remote-ssh-edit
-code --install-extension ms-vscode-remote.remote-wsl
-code --install-extension ms-vscode.remote-explorer
-code --install-extension ms-vsliveshare.vsliveshare
-code --install-extension naumovs.color-highlight
-code --install-extension netcorext.uuid-generator
-code --install-extension oderwat.indent-rainbow
-code --install-extension PKief.material-icon-theme
-code --install-extension redhat.vscode-yaml
-code --install-extension shardulm94.trailing-spaces
-code --install-extension tomoki1207.vscode-input-sequence
-code --install-extension vscode-icons-team.vscode-icons
-code --install-extension wix.vscode-import-cost
-code --install-extension yoavbls.pretty-ts-errors
+adpyke.codesnap
+batisteo.vscode-django
+dbaeumer.vscode-eslint
+donjayamanne.githistory
+eliverlara.andromeda
+esbenp.prettier-vscode
+firefox-devtools.vscode-firefox-debug
+firsttris.vscode-jest-runner
+foxundermoon.shell-format
+github.copilot
+github.copilot-chat
+github.vscode-pull-request-github
+johnpapa.vscode-peacock
+liwei.relax-eyes-theme
+miguelsolorio.fluent-icons
+monosans.djlint
+ms-azuretools.vscode-containers
+ms-python.black-formatter
+ms-python.debugpy
+ms-python.flake8
+ms-python.isort
+ms-python.python
+ms-python.vscode-pylance
+ms-python.vscode-python-envs
+ms-vscode-remote.remote-containers
+ms-vscode-remote.remote-ssh
+ms-vscode-remote.remote-ssh-edit
+ms-vscode-remote.remote-wsl
+ms-vscode.makefile-tools
+ms-vscode.remote-explorer
+naumovs.color-highlight
+netcorext.uuid-generator
+pkief.material-icon-theme
+redhat.vscode-yaml
+shardulm94.trailing-spaces
+tomoki1207.vscode-input-sequence
+yoavbls.pretty-ts-errors
