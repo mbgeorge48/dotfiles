@@ -32,13 +32,20 @@ fi
 # 2. Safely back up any existing settings so you don't lose anything
 if [ -s "$VSCODE_SETTING_PATH" ]; then
     echo "🎒 Backing up existing VS Code settings..."
-    cp "$VSCODE_SETTING_PATH" "$ARCHIVE_DIR/settings.json.bak"
+    mv "$VSCODE_SETTING_PATH" "$ARCHIVE_DIR/settings.json.bak"
 fi
 
-# 3. Copy your dotfiles settings into place
+# 3. Copy/Link your dotfiles settings into place
 mkdir -p "$VSCODE_SETTING_DIR"
-cp vscode/settings.json "$VSCODE_SETTING_PATH"
-echo "✅ VS Code settings synchronized."
+if [[ "$PLATFORM" == "mac" ]]; then
+    ln -sf "$HOME/.dotfiles/vscode/settings.json" "$VSCODE_SETTING_PATH"
+    echo "✅ VS Code settings synchronized."
+elif [[ "$PLATFORM" == "wsl" ]]; then
+    # Symbolic links don't work well across the WSL/Windows boundary, so we copy instead
+    cp vscode/settings.json "$VSCODE_SETTING_PATH"
+    echo "✅ VS Code settings copied into place."
+fi
+
 
 # 4. Install Extensions
 if command -v code >/dev/null 2>&1; then
