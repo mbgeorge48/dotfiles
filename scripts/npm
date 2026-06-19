@@ -1,18 +1,29 @@
 #!/usr/bin/env bash
+# scripts/npm
 
-set -euo pipefail
-cd "$(dirname "$0")/.."
+echo "🚀 Setting up Node environment..."
 
-ARCHIVE_DIR="$HOME/.dotfiles/archive"
-mkdir -p "$ARCHIVE_DIR"
-
-if ! command -v nvm >/dev/null 2>&1; then
-    echo "Installing nvm..."
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+# 1. Install fnm (Fast Node Manager) if it's missing
+if ! command -v fnm &> /dev/null; then
+    echo "Installing fnm..."
+    curl -fsSL https://fnm.vercel.app/install | bash
+    
+    # Manually configure paths temporarily so the script can use fnm immediately
+    export PATH="$HOME/.local/share/fnm:$PATH"
+    eval "$(fnm env)"
+else
+    echo "✅ fnm is already installed."
 fi
 
-# Load nvm for this script run
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# 2. Install and set the latest LTS version of Node
+echo "📦 Installing Node.js LTS..."
+fnm install --lts
+fnm use default
 
-echo "nvm is installed and ready."
+# 3. Enable Corepack to cleanly activate pnpm
+# (Corepack comes bundled with Node, meaning no heavy global npm installs needed!)
+echo "⚡ Activating pnpm via Corepack..."
+corepack enable
+corepack prepare pnpm@latest --activate
+
+echo "✅ Node, fnm, and pnpm setup complete!"

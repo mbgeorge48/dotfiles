@@ -1,55 +1,67 @@
 #!/usr/bin/env bash
+# scripts/vscode
 
 set -euo pipefail
 cd "$(dirname "$0")/.."
-ACTION="${1:-}"
 
 ARCHIVE_DIR="$HOME/.dotfiles/archive"
 mkdir -p "$ARCHIVE_DIR"
 
-if ! command -v code >/dev/null 2>&1; then
-    echo "VS Code CLI 'code' not found. Please install VS Code first."
-    exit 1
-fi
+# Pull in your branch's platform detection code
+source scripts/common
 
-DOT_VSCODE="$HOME/.dotfiles/vscode"
-if [[ "$ACTION" == "setup" ]]; then
-    if [[ "$PLATFORM" == "mac" ]]; then
-        SETTINGS_DIR="$HOME/Library/Application Support/Code/User"
-        SETTINGS_FILE="$SETTINGS_DIR/settings.json"
-        mkdir -p "$SETTINGS_DIR"
+echo "⚙️ Configuring VS Code..."
 
-        # Archive existing settings
-        if [[ -e "$SETTINGS_FILE" ]]; then
-            mv "$SETTINGS_FILE" "$ARCHIVE_DIR/" 2>/dev/null || true
-        fi
+# 1. Determine where settings.json needs to be dropped based on the OS
+if [[ "$PLATFORM" == "mac" ]]; then
+    VSCODE_SETTING_DIR="$HOME/Library/Application Support/Code/User"
+    VSCODE_SETTING_PATH="$VSCODE_SETTING_DIR/settings.json"
 
-        # Symlink settings
-        ln -sf "$DOT_VSCODE/settings.json" "$SETTINGS_FILE"
-        echo "Linked VS Code settings to $SETTINGS_FILE"
+elif [[ "$PLATFORM" == "wsl" ]]; then
+    # Reach into the Windows host filesystem from inside WSL
+    # This safely grabs your active Windows username without hardcoding it
+    WIN_USER=$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r')
+    VSCODE_SETTING_DIR="/mnt/c/Users/$WIN_USER/AppData/Roaming/Code/User"
+    VSCODE_SETTING_PATH="$VSCODE_SETTING_DIR/settings.json"
 
-    elif [[ "$PLATFORM" == "linux" || "$PLATFORM" == "wsl" ]]; then
-        echo "Non-macOS systems require manual VS Code settings symlink:"
-        if [[ "$PLATFORM" == "linux" ]]; then
-            echo "Linux: ~/.config/Code/User/settings.json"
-        else
-            echo "WSL: /mnt/c/Users/USERNAME/AppData/Roaming/Code/User/settings.json"
-        fi
-    fi
-fi
-
-EXT_FILE="$DOT_VSCODE/extensions"
-if [[ "$ACTION" == "sync" ]]; then
-    # Dump current extensions to vscode/extensions
-    code --list-extensions >"$EXT_FILE"
-    echo "Saved current extensions to $EXT_FILE"
 else
-    if [[ -f "$EXT_FILE" ]]; then
-        echo "Installing VSCode extensions from $EXT_FILE..."
-        while read -r line; do
-            # Skip empty lines and comments
-            [[ -z "$line" || "$line" =~ ^# ]] && continue
-            eval "$line"
-        done < "$EXT_FILE"
-    fi
+    echo "⏭️ Skipping VS Code sync for platform: $PLATFORM"
+    exit 0
 fi
+
+# 2. Safely back up any existing settings so you don't lose anything
+if [ -s "$VSCODE_SETTING_PATH" ]; then
+    echo "🎒 Backing up existing VS Code settings..."
+    cp "$VSCODE_SETTING_PATH" "$ARCHIVE_DIR/settings.json.bak"
+fi
+
+# 3. Copy your dotfiles settings into place
+mkdir -p "$VSCODE_SETTING_DIR"
+cp vscode/settings.json "$VSCODE_SETTING_PATH"
+echo "✅ VS Code settings synchronized."
+
+# 4. Install Extensions
+if command -v code >/dev/null 2>&1; then
+    echo "📦 Installing tracked VS Code extensions..."
+    
+    # Read extensions line-by-line, ignoring comments or empty lines
+    if [ -f "vscode/extensions" ]; then
+        while read -r ext || [ -n "$ext" ]; do
+            # Strip spaces, skip empty lines or commented line marks
+            ext=$(echo "$ext" | tr -d '\r ' )
+            if [[ -n "$ext" && ! "$ext" =~ ^# ]]; then
+                code --install-extension "$ext"
+            fi
+        done < vscode/extensions
+    fi
+    
+    # Keep your environment isolated: automatically add WSL remote context layer
+    if [[ "$PLATFORM" == "wsl" ]]; then
+        echo "🐳 Ensuring WSL Remote extension is active on host..."
+        cmd.exe /c "code --install-extension ms-vscode-remote.remote-wsl" >/dev/null 2>&1 || true
+    fi
+else
+    echo "⚠️ 'code' command line utility not found. Skipping extension installations."
+fi
+
+echo "✅ VS Code configuration complete!"
