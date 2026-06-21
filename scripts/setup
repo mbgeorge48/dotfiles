@@ -58,10 +58,10 @@ if [[ "$PLATFORM" == "mac" ]]; then
     fi
 elif [[ "$PLATFORM" == "wsl" ]]; then
     echo "🪟 Phase 4: Launching Windows Native Installer App Packages and installing ZSH..."
-    
+
     # Translate our Linux path so cmd.exe can find the script directory
     WIN_CWD=$(wslpath -w "$(pwd)")
-    
+
     # Use pushd to bypass the Windows UNC path restriction natively
     if [[ "$MODE" == "work" ]]; then
         cmd.exe /c "pushd $WIN_CWD && scripts\\windows\\install-apps.bat work"
