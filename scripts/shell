@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# scripts/shell
 
 set -euo pipefail
 cd "$(dirname "$0")/.."
@@ -6,62 +7,21 @@ cd "$(dirname "$0")/.."
 ARCHIVE_DIR="$HOME/.dotfiles/archive"
 mkdir -p "$ARCHIVE_DIR"
 
-source scripts/common
+echo "🐚 Configuring Shell Environment..."
 
-ACTION="${1:-}"
-if [[ "$ACTION" == "setup" ]]; then
-    echo "Setting up shell configuration for $PLATFORM..."
-
-    # Archive old files if they exist
-    for f in ~/.zprofile ~/.bash_profile ~/.zsh_prompt ~/.bash_prompt ~/.zshrc ~/.bashrc; do
-        if [[ -s "$f" ]]; then
-            echo "Archiving $f → $ARCHIVE_DIR"
-            mv "$f" "$ARCHIVE_DIR/" 2>/dev/null || true
-        fi
-    done
-
-    # Dotfiles shell profile
-    DOT_PROFILE="$HOME/.dotfiles/shell/profile"
-    if [[ ! -f "$DOT_PROFILE" ]]; then
-        echo "⚠️ Warning: $DOT_PROFILE not found."
-    fi
-    SOURCE_CMD="source $DOT_PROFILE"
-
-    # Determine default shell
-    DEFAULT_SHELL="$(basename "${SHELL:-bash}")"
-
-    case "$DEFAULT_SHELL" in
-        zsh)
-            RC_FILE="$HOME/.zshrc"
-            ;;
-        bash|sh|*)
-            RC_FILE="$HOME/.bashrc"
-            ;;
-    esac
-
-    # Ensure the rc file exists
-    touch "$RC_FILE"
-
-    # Append the source command if not already present
-    if ! grep -Fxq "$SOURCE_CMD" "$RC_FILE"; then
-        echo "$SOURCE_CMD" >>"$RC_FILE"
-        echo "Added shell profile source to $RC_FILE"
-    else
-        echo "Shell profile source already present in $RC_FILE"
-fi
+# 1. Main Entry Point: Map your existing 'profile' asset straight to ~/.zshrc
+if [[ -e "$HOME/.zshrc" && ! -L "$HOME/.zshrc" ]]; then
+    echo "🎒 Archiving local .zshrc..."
+    mv "$HOME/.zshrc" "$ARCHIVE_DIR/zshrc.bak" 2>/dev/null || true
 fi
 
-if [[ "${1:-}" == "update" ]]; then
-    echo "🔄 Updating shell-related packages for $PLATFORM..."
-    case "$PLATFORM" in
-    mac)
-        brew update
-        ;;
-    linux | wsl)
-        sudo apt-get update -y
-        ;;
-    windows)
-        echo "Windows shell updates are handled via Chocolatey or manually."
-        ;;
-    esac
+echo "🔗 Symlinking shell/profile to ~/.zshrc..."
+ln -sf "$HOME/.dotfiles/shell/profile" "$HOME/.zshrc"
+
+# 2. Seed the local untracked override file so the profile line doesn't error out
+if [[ ! -f "$HOME/.zshrc.local" ]]; then
+    echo "📝 Creating local ~/.zshrc.local file..."
+    touch "$HOME/.zshrc.local"
 fi
+
+echo "✅ Shell entry points symlinked successfully!"

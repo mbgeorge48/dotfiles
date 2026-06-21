@@ -1,12 +1,21 @@
 #!/usr/bin/env bash
+# scripts/ssh
 
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-if ! [ -x "$(command -v ssh)" ]; then
-    echo "Requires SSH to be installed"
+if ! command -v ssh >/dev/null 2>&1; then
+    echo "❌ Requires SSH to be installed"
     exit 1
 fi
 
-mkdir -p ~/.ssh
-chmod 700 ~/.ssh
+echo "🔑 Configuring local SSH folder permissions..."
+
+# Ensure the local configuration folder exists with strict user-only read/write permissions
+mkdir -p "$HOME/.ssh"
+chmod 700 "$HOME/.ssh"
+
+# If you have an active SSH config file tracking in your dotfiles, 
+# we can symlink it into place right here.
+
+echo "✅ SSH directory configuration complete."

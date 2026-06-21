@@ -1,52 +1,76 @@
 #!/usr/bin/env bash
+# scripts/setup
 
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
+# 1. Initialize the core platform engine
 source scripts/common
-mkdir -p ~/personal/
 
-if [ "$PLATFORM" = "mac" ]; then
-    echo "### Brew ###"
-    scripts/brew
-fi
-
-echo "### Shell ###"
-scripts/shell update
-scripts/shell setup
-
-echo "### Git ###"
-scripts/git setup
+echo "🚀 Starting Matt's Dotfiles Bootstrap Flow..."
+echo "📍 Detected Environment: ${PLATFORM^^}"
+echo "----------------------------------------"
 
 ACTION="${1:-}"
 if [ "$ACTION" = "work" ]; then
-    mkdir -p ~/work/
-    custom_aliases=".custom_aliases"
-    if [ -s ~/$custom_aliases ]; then
-        touch ~/.custom_aliases
+    MODE="work"
+else
+    MODE="personal"
+fi
+
+# 2. Bootstrapping Package Managers & Toolchains
+if [[ "$PLATFORM" == "mac" ]]; then
+    echo "🍺 Phase 1: Orchestrating Mac System Packages..."
+    # Passes 'setup' flag to automatically install Homebrew if missing
+    ./scripts/brew setup
+else
+    echo "🐳 Phase 1: Verifying Linux Core Libraries..."
+    # Ensure standard compilation packages are present on WSL/Linux
+    sudo apt-get update -qq
+    sudo apt-get install -y build-essential curl wget git unzip
+fi
+
+# 3. Core Engine Toolchains
+echo "🐍 Phase 2: Provisioning Pyenv Engine..."
+./scripts/pyenv
+
+# 4. Configuration Symlinking & Security Mapping
+echo "⚙️ Phase 3: Synchronizing System Configurations..."
+
+# Run the individual modular scripts we audited
+./scripts/shell
+./scripts/git setup
+if [ "$MODE" = "work" ]; then
+    ./scripts/git $MODE
+    MODE="work"
+fi
+./scripts/gpg
+./scripts/ssh
+./scripts/vim
+./scripts/vscode
+
+# 5. Platform-Specific System Defaults Adjustments
+if [[ "$PLATFORM" == "mac" ]]; then
+    echo "🍏 Phase 4: Applying native macOS system preferences..."
+    # This will hook into your incoming 'Mac/' directory migration shortly
+    if [[ -f "./scripts/osx/setup" ]]; then
+        ./scripts/osx/setup
     fi
-    echo "### Work Git ###"
-    scripts/git work
+elif [[ "$PLATFORM" == "wsl" ]]; then
+    echo "🪟 Phase 4: Launching Windows Native Installer App Packages and installing ZSH..."
+    
+    # Translate our Linux path so cmd.exe can find the script directory
+    WIN_CWD=$(wslpath -w "$(pwd)")
+    
+    # Use pushd to bypass the Windows UNC path restriction natively
+    if [[ "$MODE" == "work" ]]; then
+        cmd.exe /c "pushd $WIN_CWD && scripts\\windows\\install-apps.bat work"
+    else
+        cmd.exe /c "pushd $WIN_CWD && scripts\\windows\\install-apps.bat personal"
+    fi
 fi
 
-echo "### Vim ###"
-scripts/vim setup
 
-echo "### VScode ###"
-scripts/vscode setup
-
-echo "### Pyenv ###"
-scripts/pyenv
-echo "### NPM ###"
-scripts/npm
-
-echo "### GPG ###"
-scripts/gpg
-echo "### SSH ###"
-scripts/ssh
-
-if ! [ -L ~/personal/dotfiles ]; then
-    ln -s ~/.dotfiles ~/personal/dotfiles
-fi
-
-exec $SHELL
+echo "----------------------------------------"
+echo "✨ ALL PHASES COMPLETE! Your environment is locked and loaded."
+echo "👉 Note: Run 'source ~/.zshrc' or open a new terminal window to initialize everything."
