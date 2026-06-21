@@ -3,8 +3,12 @@
         "editor.defaultFormatter": "monosans.djlint",
         "editor.formatOnSave": false
     },
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
     "[python]": {
-        "editor.defaultFormatter": "ms-python.black-formatter"
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "diffEditor.ignoreTrimWhitespace": true
     },
     "[yaml]": {
         "editor.defaultFormatter": "redhat.vscode-yaml"
@@ -21,11 +25,11 @@
     "editor.codeActionsOnSave": {
         "source.fixAll": "explicit"
     },
-    // "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.fontFamily": "Comic Code, Jetbrains Mono, Hack, Inconsolata-Regular, Consolas, monospace",
     "editor.fontLigatures": false,
     "editor.fontSize": 14,
-    // "editor.formatOnSave": true,
+    "editor.formatOnSave": true,
     "editor.guides.bracketPairs": true,
     "editor.largeFileOptimizations": true,
     "editor.minimap.autohide": "mouseover",
@@ -228,5 +232,15 @@
     "workbench.editor.revealIfOpen": true,
     "python.analysis.typeCheckingMode": "basic",
     "python.createEnvironment.trigger": "off",
-    "eslint.alwaysShowStatus": true
+    "eslint.alwaysShowStatus": true,
+    "http.systemCertificatesNode": true,
+    "geminicodeassist.displayInlineContextHint": false,
+    "diffEditor.codeLens": true,
+    "chat.viewSessions.orientation": "stacked",
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
+    }
 }
