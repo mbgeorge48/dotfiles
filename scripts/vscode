@@ -57,7 +57,7 @@ if command -v code >/dev/null 2>&1; then
             # Strip spaces, skip empty lines or commented line marks
             ext=$(echo "$ext" | tr -d '\r ' )
             if [[ -n "$ext" && ! "$ext" =~ ^# ]]; then
-                # Run the installer silently. If it crashes, catch the error stream 
+                # Run the installer silently. If it crashes, catch the error stream
                 # and filter out the noisy node deprecation warnings.
                 if ! output=$(code --install-extension "$ext" 2>&1 >/dev/null); then
                     echo "  ❌ Failed to install: $ext"

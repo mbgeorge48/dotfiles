@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 set -euo pipefail
-cd "$(dirname "$0")/.."
+cd "$(dirname "$0")/../.."
 
 source scripts/common
 
@@ -21,7 +21,7 @@ defaults write com.apple.dock magnification -bool true
 defaults write com.apple.dock largesize -int 48
 defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -int 0
-killall Dock
+killall Dock > /dev/null 2>&1 || true
 
 echo "### Finder setup ###"
 defaults read com.apple.finder >~/.dotfiles/archive/mac_os_finder
@@ -33,13 +33,13 @@ defaults write com.apple.finder ShowPathbar -bool true
 defaults write com.apple.finder ShowSidebar -bool true
 defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool false
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
-killall finder
+killall finder > /dev/null 2>&1 || true
 
 echo "### Screenshots setup ###"
 defaults read com.apple.screencapture >~/.dotfiles/archive/mac_os_screencapture
 
 defaults write com.apple.screencapture type jpg
-mkdir ~/Pictures/screenshots
+mkdir -p ~/Pictures/screenshots
 defaults write com.apple.screencapture location ~/Pictures/screenshots
 
 echo "### Autocorrect setup ###"
