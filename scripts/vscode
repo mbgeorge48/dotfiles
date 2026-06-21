@@ -49,24 +49,30 @@ fi
 
 # 4. Install Extensions
 if command -v code >/dev/null 2>&1; then
-    echo "📦 Installing tracked VS Code extensions..."
-    
+    echo "📦 Syncing tracked VS Code extensions..."
+
     # Read extensions line-by-line, ignoring comments or empty lines
     if [ -f "vscode/extensions" ]; then
         while read -r ext || [ -n "$ext" ]; do
             # Strip spaces, skip empty lines or commented line marks
             ext=$(echo "$ext" | tr -d '\r ' )
             if [[ -n "$ext" && ! "$ext" =~ ^# ]]; then
-                code --install-extension "$ext"
+                # Run the installer silently. If it crashes, catch the error stream 
+                # and filter out the noisy node deprecation warnings.
+                if ! output=$(code --install-extension "$ext" 2>&1 >/dev/null); then
+                    echo "  ❌ Failed to install: $ext"
+                    echo "$output" | grep -v -E "DeprecationWarning|node:"
+                fi
             fi
         done < vscode/extensions
     fi
-    
+
     # Keep your environment isolated: automatically add WSL remote context layer
     if [[ "$PLATFORM" == "wsl" ]]; then
         echo "🐳 Ensuring WSL Remote extension is active on host..."
         cmd.exe /c "code --install-extension ms-vscode-remote.remote-wsl" >/dev/null 2>&1 || true
     fi
+    echo "✅ VS Code extension sync complete."
 else
     echo "⚠️ 'code' command line utility not found. Skipping extension installations."
 fi
