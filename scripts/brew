@@ -22,7 +22,7 @@ if ! command -v brew >/dev/null 2>&1; then
     if [[ "$ACTION" == "setup" ]]; then
         echo "🍺 Installing Homebrew from scratch..."
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-        
+
         # Determine CPU architecture path for modern Apple Silicon support vs Intel legacy
         if [[ -f "/opt/homebrew/bin/brew" ]]; then
             eval "$(/opt/homebrew/bin/brew shellenv)"

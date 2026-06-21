@@ -7,7 +7,7 @@ echo "🚀 Setting up Node environment..."
 if ! command -v fnm &> /dev/null; then
     echo "Installing fnm..."
     curl -fsSL https://fnm.vercel.app/install | bash
-    
+
     # Manually configure paths temporarily so the script can use fnm immediately
     export PATH="$HOME/.local/share/fnm:$PATH"
     eval "$(fnm env)"

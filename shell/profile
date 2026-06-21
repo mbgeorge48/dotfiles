@@ -11,11 +11,11 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     # OpenSSL compiler flags
     export CPPFLAGS="-I/usr/local/opt/openssl/include"
     export LDFLAGS="-L/usr/local/opt/openssl/lib"
-    
+
     # Android SDK & Java paths
     ANDROID_HOME="$HOME/Library/Android/sdk"
     [ -d "$ANDROID_HOME" ] && export PATH="$ANDROID_HOME/platform-tools:$PATH"
-    
+
     JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
     [ -d "$JAVA_HOME" ] && export JAVA_HOME
 else
@@ -36,7 +36,7 @@ fi
 # Node
 [[ -f "$HOME/.dotfiles/node/fnm" ]] && source "$HOME/.dotfiles/node/fnm"
 if command -v fnm &> /dev/null; then
-    eval "$(fnm env --use-on-cd --log-level=error)"
+    eval "$(fnm env --use-on-cd --log-level=error --shell zsh)"
 fi
 
 # GPG Setup (Crucial for Git commit signing)
@@ -58,9 +58,3 @@ export EDITOR="$VISUAL"
 [[ -f ~/.dotfiles/shell/zsh_extras ]] && source ~/.dotfiles/shell/zsh_extras
 # Load local-only machine overrides if they exist
 [[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
-# fnm
-FNM_PATH="/home/mg/.local/share/fnm"
-if [ -d "$FNM_PATH" ]; then
-  export PATH="$FNM_PATH:$PATH"
-  eval "$(fnm env --shell zsh)"
-fi

@@ -7,8 +7,8 @@ cd "$(dirname "$0")/.."
 # 1. Initialize the core platform engine
 source scripts/common
 
-echo "🚀 Starting Matt's Dotfiles Bootstrap Flow..."
-echo "📍 Detected Environment: ${PLATFORM^^}"
+PLATFORM_UPPER=$(echo "$PLATFORM" | tr '[:lower:]' '[:upper:]')
+echo "📍 Detected Environment: $PLATFORM_UPPER"
 echo "----------------------------------------"
 
 ACTION="${1:-}"
