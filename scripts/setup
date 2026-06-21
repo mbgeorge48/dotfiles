@@ -12,7 +12,7 @@ scripts/shell setup
 
 if [ "$(uname -s)" = "Darwin" ]; then
     echo "Brew"
-    scripts/brew
+    scripts/brew setup
 fi
 
 echo "Git"
