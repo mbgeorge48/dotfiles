@@ -1,41 +1,60 @@
-#!/bin/sh
+# shell/profile
 
-source $HOME/.dotfiles/shell/aliases
-case $SHELL in
-*'zsh'*)
-    source $HOME/.dotfiles/shell/zsh_prompt
-    source $HOME/.dotfiles/shell/zsh_extras
-    ;;
-*'bash'*)
-    source $HOME/.dotfiles/shell/bash_prompt
-    ;;
-esac
+export PATH="$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
 
-# Brew
-export CPPFLAGS=-I/usr/local/opt/openssl/include
-export LDFLAGS=-L/usr/local/opt/openssl/lib
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # macOS-Specific: Only run Homebrew logic on a Mac
+    if [ -f "/opt/homebrew/bin/brew" ]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    fi
 
-# GPG
-export GPG_TTY=$(tty)
+    # OpenSSL compiler flags
+    export CPPFLAGS="-I/usr/local/opt/openssl/include"
+    export LDFLAGS="-L/usr/local/opt/openssl/lib"
 
-if [ -e $HOME/.dotfiles/node/nvm ]; then
-    source $HOME/.dotfiles/node/nvm
+    # Android SDK & Java paths
+    ANDROID_HOME="$HOME/Library/Android/sdk"
+    [ -d "$ANDROID_HOME" ] && export PATH="$ANDROID_HOME/platform-tools:$PATH"
+
+    JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+    [ -d "$JAVA_HOME" ] && export JAVA_HOME
+else
+    # WSL / Linux-Specific: Ensure Windows interop tools run smoothly
+    export DISPLAY=:0
 fi
 
-if [ -e $HOME/.dotfiles/python/python ]; then
-    command -v python3 >/dev/null 2>&1 && source $HOME/.dotfiles/python/python
-    command -v python >/dev/null 2>&1 && source $HOME/.dotfiles/python/python
+# Python
+if [ -d "$HOME/.pyenv" ]; then
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+fi
+# Python Auto-Venv Hook
+[[ -f "$HOME/.dotfiles/python/python" ]] && source "$HOME/.dotfiles/python/python"
+
+# Node
+[[ -f "$HOME/.dotfiles/node/fnm" ]] && source "$HOME/.dotfiles/node/fnm"
+if command -v fnm &> /dev/null; then
+    eval "$(fnm env --use-on-cd --log-level=error --shell zsh)"
 fi
 
-# brew list android-studio &>/dev/null
-# if [ $? -eq 0 ]; then
-export ANDROID_HOME=$HOME/Library/Android/sdk
-export PATH=$ANDROID_HOME/platform-tools:$PATH
-export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jbr/Contents/Home
-# fi
+# GPG Setup (Crucial for Git commit signing)
+if command -v tty >/dev/null 2>&1; then
+    export GPG_TTY=$(tty)
+fi
 
+# Global Editors
 export VISUAL=vim
-export EDITOR='$VISUAL'
+export EDITOR="$VISUAL"
 
-export PYENV_ROOT="$HOME/.pyenv"
-export NVM_DIR="$HOME/.nvm"
+
+
+# ~/.zshrc
+[[ -f ~/.zprofile ]] && source ~/.zprofile
+
+[[ -f ~/.dotfiles/shell/aliases ]]    && source ~/.dotfiles/shell/aliases
+[[ -f ~/.dotfiles/shell/zsh_prompt ]] && source ~/.dotfiles/shell/zsh_prompt
+[[ -f ~/.dotfiles/shell/zsh_extras ]] && source ~/.dotfiles/shell/zsh_extras
+# Load local-only machine overrides if they exist
+[[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"

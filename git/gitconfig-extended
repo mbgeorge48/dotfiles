@@ -8,4 +8,4 @@
 [commit]
 	gpgsign = true
 [core]
-    sshCommand = "ssh -i ~/.ssh/id_mbgeorge48"
+    sshCommand = "ssh -i ~/.ssh/id_mbgeorge48_github"

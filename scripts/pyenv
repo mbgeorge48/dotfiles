@@ -1,20 +1,32 @@
-#!/bin/sh
+#!/usr/bin/env bash
+# scripts/pyenv
 
-set -e
-
+set -euo pipefail
 cd "$(dirname "$0")/.."
 
-if [ "$(uname -s)" = "Darwin" ]; then
-    echo "Error: script only runs on none Mac Unix machines"
-    exit 1
-fi
+ARCHIVE_DIR="$HOME/.dotfiles/archive"
+mkdir -p "$ARCHIVE_DIR"
 
-if ! [ -x "$(command -v sudo)" ]; then
-    apt-get install make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev -y
-else
-    sudo apt-get install make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev -y
-fi
+# Pull in PLATFORM detection and the install_package function
+source scripts/common
 
-if ! [ -s ~/.pyenv ]; then
-    curl https://pyenv.run | bash
+if ! command -v pyenv >/dev/null 2>&1; then
+    echo "Installing pyenv..."
+
+    if [[ "$PLATFORM" == "mac" ]]; then
+        # Homebrew cleanly handles everything on Mac natively
+        install_package pyenv
+    else
+        # Linux / WSL require core C-compilation header libraries first
+        echo "🐳 Installing WSL build dependencies..."
+        install_package build-essential libssl-dev zlib1g-dev libbz2-dev \
+            libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev \
+            libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev
+
+        # Use the official installer instead of a raw git clone for faster/cleaner setup
+        if [ ! -d "$HOME/.pyenv" ]; then
+            echo "📥 Downloading official pyenv engine..."
+            curl https://pyenv.run | bash
+        fi
+    fi
 fi

@@ -1,20 +1,29 @@
-#!/bin/sh
+#!/usr/bin/env bash
+# scripts/npm
 
-set -e
+echo "🚀 Setting up Node environment..."
 
-cd "$(dirname "$0")/.."
+# 1. Install fnm (Fast Node Manager) if it's missing
+if ! command -v fnm &> /dev/null; then
+    echo "Installing fnm..."
+    curl -fsSL https://fnm.vercel.app/install | bash
 
-if [ "$(uname -s)" = "Darwin" ]; then
-    echo "Error: script only runs on none Mac Unix machines"
-    exit 1
-fi
-
-if ! [ -x "$(command -v sudo)" ]; then
-    apt-get install nodejs npm -y
+    # Manually configure paths temporarily so the script can use fnm immediately
+    export PATH="$HOME/.local/share/fnm:$PATH"
+    eval "$(fnm env)"
 else
-    sudo apt-get install nodejs npm -y
+    echo "✅ fnm is already installed."
 fi
 
-if ! [ -s ~/.nvm ]; then
-    curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
-fi
+# 2. Install and set the latest LTS version of Node
+echo "📦 Installing Node.js LTS..."
+fnm install --lts
+fnm use default
+
+# 3. Enable Corepack to cleanly activate pnpm
+# (Corepack comes bundled with Node, meaning no heavy global npm installs needed!)
+echo "⚡ Activating pnpm via Corepack..."
+corepack enable
+corepack prepare pnpm@latest --activate
+
+echo "✅ Node, fnm, and pnpm setup complete!"

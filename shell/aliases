@@ -22,6 +22,9 @@ alias this_branch='git branch --show-current'
 alias cdl='cd_list_dir'
 alias echo_scp='echo $USER@$(hostname -s):$PWD'
 
+# Two-way synchronization helper for Windows host VS Code configurations
+alias vsc_pull='cp -f /mnt/c/Users/$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d "\r")/AppData/Roaming/Code/User/settings.json ~/.dotfiles/vscode/settings.json && echo "📥 Dotfiles updated with local VS Code tweaks!"'
+
 if [ -e $HOME/.custom_aliases ]; then
     source ~/.custom_aliases
 fi

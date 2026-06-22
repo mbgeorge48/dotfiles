@@ -1,56 +1,27 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# scripts/shell
 
-set -e
-
+set -euo pipefail
 cd "$(dirname "$0")/.."
 
-if [ "$1" == "setup" ]; then
-    if [ -s ~/.zprofile ]; then
-        mv ~/.zprofile ~/.dotfiles/archive/ 2>/dev/null
-    fi
-    if [ -s ~/.bash_profile ]; then
-        mv ~/.bash_profile ~/.dotfiles/archive/ 2>/dev/null
-    fi
-    if [ -s ~/.zsh_prompt ]; then
-        mv ~/.zsh_prompt ~/.dotfiles/archive/ 2>/dev/null
-    fi
-    if [ -s ~/.bash_prompt ]; then
-        mv ~/.bash_prompt ~/.dotfiles/archive/ 2>/dev/null
-    fi
-    source_command="source ~/.dotfiles/shell/profile"
-    case $SHELL in
-    *'zsh'*)
-        if [ -x "$(grep -Fxq "$source_command" ~/.zshrc)" ]; then
-            echo $source_command >>~/.zshrc
-        fi
-        ;;
-    *'bash'*)
-        if [ -x "$(grep -Fxq "$source_command" ~/.bashrc)" ]; then
-            echo $source_command >>~/.bashrc
-        fi
-        ;;
-    esac
+ARCHIVE_DIR="$HOME/.dotfiles/archive"
+mkdir -p "$ARCHIVE_DIR"
+
+echo "🐚 Configuring Shell Environment..."
+
+# 1. Main Entry Point: Map your existing 'profile' asset straight to ~/.zshrc
+if [[ -e "$HOME/.zshrc" && ! -L "$HOME/.zshrc" ]]; then
+    echo "🎒 Archiving local .zshrc..."
+    mv "$HOME/.zshrc" "$ARCHIVE_DIR/zshrc.bak" 2>/dev/null || true
 fi
 
-if [ "$1" == "update" ]; then
-    if ! [ "$(uname -s)" = "Darwin" ]; then
-        if [ -x "$(command -v apt-get)" ]; then
-            if [ -x "$(command -v sudo)" ]; then
-                sudo apt-get update -y
-                exit 0
-            else
-                apt-get update -y
-                exit 0
-            fi
-        fi
-        if [ -x "$(command -v yum)" ]; then
-            if [ -x "$(command -v sudo)" ]; then
-                sudo yum update -y
-                exit 0
-            else
-                yum update -y
-                exit 0
-            fi
-        fi
-    fi
+echo "🔗 Symlinking shell/profile to ~/.zshrc..."
+ln -sf "$HOME/.dotfiles/shell/profile" "$HOME/.zshrc"
+
+# 2. Seed the local untracked override file so the profile line doesn't error out
+if [[ ! -f "$HOME/.zshrc.local" ]]; then
+    echo "📝 Creating local ~/.zshrc.local file..."
+    touch "$HOME/.zshrc.local"
 fi
+
+echo "✅ Shell entry points symlinked successfully!"

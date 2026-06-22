@@ -1,37 +1,54 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# scripts/git
 
-set -e
-
+set -euo pipefail
 cd "$(dirname "$0")/.."
+ACTION="${1:-}"
 
-if ! [ -x "$(command -v git)" ]; then
-    echo "Requires Git to be installed"
-    echo "How did you get to this point?!"
+ARCHIVE_DIR="$HOME/.dotfiles/archive"
+mkdir -p "$ARCHIVE_DIR"
+
+if ! command -v git >/dev/null 2>&1; then
+    echo "❌ Git is required but not installed."
     exit 1
 fi
 
-if [ "$1" == "setup" ]; then
-    if [ -s ~/.gitconfig ]; then
-        mv ~/.gitconfig archive/ 2>/dev/null
-    fi
-    if [ -L ~/.gitconfig ]; then
-        rm ~/.gitconfig
-    fi
-    ln -s $HOME/.dotfiles/git/gitconfig ~/.gitconfig
+DOT_GIT="$HOME/.dotfiles/git"
 
-    if [ -s ~/personal/.gitconfig-personal ]; then
-        mv ~/personal/.gitconfig-personal archive/ 2>/dev/null
-    fi
-    if [ -L ~/personal/.gitconfig-personal ]; then
-        rm ~/personal/.gitconfig-personal
-    fi
-    ln -s $HOME/.dotfiles/git/gitconfig-extended ~/personal/.gitconfig-personal
-fi
+if [[ "$ACTION" == "setup" ]]; then
+    echo "📦 Configuring Global & Personal Git Settings..."
 
-if [ "$1" == "work" ]; then
-    mkdir -p ~/work/
-    if [ -s ~/work/.gitconfig-work ]; then
-        mv ~/work/.gitconfig-work archive/ 2>/dev/null
+    # 1. Main Global ~/.gitconfig Symlink
+    if [[ -e "$HOME/.gitconfig" ]]; then
+        mv "$HOME/.gitconfig" "$ARCHIVE_DIR/" 2>/dev/null || true
     fi
-    cp git/gitconfig-extended ~/work/.gitconfig-work
+    ln -sf "$DOT_GIT/gitconfig" "$HOME/.gitconfig"
+
+    # 2. Personal Folder Identity Setup (Always symlinked on every machine)
+    mkdir -p "$HOME/personal"
+    if [[ -e "$HOME/personal/.gitconfig-personal" ]]; then
+        mv "$HOME/personal/.gitconfig-personal" "$ARCHIVE_DIR/" 2>/dev/null || true
+    fi
+    ln -sf "$DOT_GIT/gitconfig-extended" "$HOME/personal/.gitconfig-personal"
+    
+    echo "✅ Global and Personal profiles mapped."
+
+elif [[ "$ACTION" == "work" ]]; then
+    echo "💼 Provisioning local-only Work profile..."
+    
+    mkdir -p "$HOME/work"
+    WORK_CONFIG="$HOME/work/.gitconfig-work"
+
+    if [[ -e "$WORK_CONFIG" ]]; then
+        mv "$WORK_CONFIG" "$ARCHIVE_DIR/" 2>/dev/null || true
+    fi
+
+    # Explicitly copy as a decoupled, local-only template file
+    cp "$DOT_GIT/gitconfig-extended" "$WORK_CONFIG"
+    
+    echo "✅ Work directory prepared!"
+    echo "👉 Action Required: Open $WORK_CONFIG to manually add your corporate credentials."
+else
+    echo "⚠️ Unknown action: '$ACTION'. Use 'setup' or 'work'."
+    exit 1
 fi

@@ -1,21 +1,32 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# scripts/vim
 
-set -e
-
+set -euo pipefail
 cd "$(dirname "$0")/.."
 
-if ! [ -x "$(command -v vim)" ]; then
-    echo "Requires Vim to be installed"
+ARCHIVE_DIR="$HOME/.dotfiles/archive"
+mkdir -p "$ARCHIVE_DIR"
+
+if ! command -v vim >/dev/null 2>&1; then
+    echo "❌ Vim is required but not installed."
     exit 1
 fi
 
-if [ "$1" == "setup" ]; then
-    if [ -s ~/.vimrc ]; then
-        mv ~/.vimrc archive/ 2>/dev/null
-    fi
+echo "📝 Configuring Vim..."
 
-    if [ -L ~/.vimrc ]; then
-        rm ~/.vimrc
+# 1. Main Global ~/.vimrc Symlink
+if [[ -e "$HOME/.vimrc" ]]; then
+    # Move existing file to archive out of the way if it isn't a symlink already
+    if [ ! -L "$HOME/.vimrc" ]; then
+        mv "$HOME/.vimrc" "$ARCHIVE_DIR/vimrc.bak" 2>/dev/null || true
     fi
-    ln -s $HOME/.dotfiles/vim/vimrc ~/.vimrc
 fi
+ln -sf "$HOME/.dotfiles/vim/vimrc" "$HOME/.vimrc"
+
+# 2. Setup Central Swap/Undo Directories
+# This keeps your project directories perfectly clean of trailing .swp files
+mkdir -p "$HOME/.vim/dirs/backups"
+mkdir -p "$HOME/.vim/dirs/swaps"
+mkdir -p "$HOME/.vim/dirs/undo"
+
+echo "✅ Vim configuration and symlinks complete!"

@@ -1,0 +1,6 @@
+# node/fnm
+if [ -d "$HOME/.local/share/fnm" ]; then
+    export PATH="$HOME/.local/share/fnm:$PATH"
+elif [ -d "$HOME/.fnm" ]; then
+    export PATH="$HOME/.fnm:$PATH"
+fi

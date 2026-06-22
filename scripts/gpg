@@ -1,14 +1,35 @@
-#!/bin/sh
+#!/usr/bin/env bash
+# scripts/gpg
 
-set -e
-
+set -euo pipefail
 cd "$(dirname "$0")/.."
 
-if ! [ -x "$(command -v gpg)" ]; then
-    echo "Requires GPG to be installed"
+# Pull in your common platform detection code (PLATFORM="wsl", etc.)
+source scripts/common
+
+if ! command -v gpg >/dev/null 2>&1; then
+    echo "❌ Requires GPG to be installed"
     exit 1
 fi
 
-gpg --list-secret-keys --keyid-format LONG
+# Ensure the local configuration folder exists with tight permissions
 mkdir -p ~/.gnupg
 chmod 700 ~/.gnupg
+
+# 🐳 WSL-Specific: Fix the dreaded hanging terminal signing issue
+if [[ "$PLATFORM" == "wsl" ]]; then
+    echo "🐳 Configuring loopback pinentry for WSL terminal signing..."
+    
+    # Safely append settings without duplicating lines if run multiple times
+    grep -q "allow-loopback-pinentry" ~/.gnupg/gpg-agent.conf 2>/dev/null || echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
+    grep -q "pinentry-mode loopback" ~/.gnupg/gpg.conf 2>/dev/null || echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
+    
+    # Set a generous cache timeout so you aren't re-typing your password every 10 minutes
+    grep -q "default-cache-ttl" ~/.gnupg/gpg-agent.conf 2>/dev/null || echo "default-cache-ttl 7200" >> ~/.gnupg/gpg-agent.conf
+    grep -q "max-cache-ttl" ~/.gnupg/gpg-agent.conf 2>/dev/null || echo "max-cache-ttl 7200" >> ~/.gnupg/gpg-agent.conf
+
+    # Flush the agent so it immediately loads your fresh settings
+    gpgconf --kill gpg-agent
+fi
+
+echo "✅ GPG configuration step complete."

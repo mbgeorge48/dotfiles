@@ -1,9 +1,14 @@
 {
     "[django-html]": {
+        "editor.defaultFormatter": "monosans.djlint",
         "editor.formatOnSave": false
     },
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
     "[python]": {
-        "editor.defaultFormatter": "ms-python.black-formatter"
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "diffEditor.ignoreTrimWhitespace": true
     },
     "[yaml]": {
         "editor.defaultFormatter": "redhat.vscode-yaml"
@@ -11,6 +16,9 @@
     "[shellscript]": {
         "editor.formatOnSave": false,
         "editor.defaultFormatter": "foxundermoon.shell-format"
+    },
+    "[typescriptreact]": {
+        "editor.formatOnSave": false
     },
     "application.shellEnvironmentResolutionTimeout": 60,
     "catppuccin.bracketMode": "rainbow",
@@ -24,14 +32,14 @@
     "editor.formatOnSave": true,
     "editor.guides.bracketPairs": true,
     "editor.largeFileOptimizations": true,
-    "editor.minimap.autohide": true,
+    "editor.minimap.autohide": "mouseover",
     "editor.minimap.enabled": true,
     "editor.minimap.renderCharacters": false,
     "editor.renderControlCharacters": true,
     "editor.renderWhitespace": "all",
     "editor.tabSize": 4,
     "emmet.triggerExpansionOnTab": true,
-    "extensions.autoUpdate": "onlyEnabledExtensions",
+    "extensions.autoUpdate": "on",
     "files.exclude": {
         ".pytest_cache": true,
         "**/__pycache__": true,
@@ -63,7 +71,7 @@
     "terminal.external.windowsExec": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell",
     "terminal.integrated.defaultProfile.osx": "zsh",
     "terminal.integrated.defaultProfile.windows": "Command Prompt",
-    "terminal.integrated.enableMultiLinePasteWarning": "auto",
+    "terminal.integrated.enableMultiLinePasteWarning": "never",
     "terminal.integrated.scrollback": 200000,
     "terminal.integrated.fontFamily": "Comic Code ,Jetbrains Mono, Hack, Inconsolata-Regular, Consolas, monospace",
     "terminal.integrated.fontSize": 13,
@@ -147,7 +155,7 @@
             "widget.border": "#ffffff"
         }
     },
-    "workbench.iconTheme": "vscode-icons",
+    "workbench.iconTheme": "material-icon-theme",
     "workbench.startupEditor": "readme",
     "workbench.tree.indent": 16,
     "diffEditor.ignoreTrimWhitespace": false,
@@ -155,6 +163,10 @@
     "scm.showOutgoingChanges": "always",
     "scm.showIncomingChanges": "always",
     "githubPullRequests.queries": [
+        {
+            "label": "Local Pull Request Branches",
+            "query": "default"
+        },
         {
             "label": "Waiting For My Review",
             "query": "is:open review-requested:${user}"
@@ -166,10 +178,14 @@
         {
             "label": "Created By Me",
             "query": "is:open author:${user}"
+        },
+        {
+            "label": "All Open",
+            "query": "default"
         }
     ],
     "githubPullRequests.pullBranch": "never",
-    "workbench.sideBar.location": "right",
+    "workbench.sideBar.location": "left",
     "peacock.favoriteColors": [
         {
             "name": "Angular Red",
@@ -208,5 +224,23 @@
             "value": "#42b883"
         }
     ],
-    "vsicons.dontShowNewVersionMessage": true
+    "djlint.showInstallError": false,
+    "terminal.integrated.stickyScroll.enabled": false,
+    "docker.extension.enableComposeLanguageServer": false,
+    "workbench.productIconTheme": "fluent-icons",
+    "workbench.editor.openPositioning": "first",
+    "workbench.editor.revealIfOpen": true,
+    "python.analysis.typeCheckingMode": "basic",
+    "python.createEnvironment.trigger": "off",
+    "eslint.alwaysShowStatus": true,
+    "http.systemCertificatesNode": true,
+    "geminicodeassist.displayInlineContextHint": false,
+    "diffEditor.codeLens": true,
+    "chat.viewSessions.orientation": "stacked",
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
+    }
 }

@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# scripts/common
+
+# Enforce strict error handling across all sourcing modules
+set -euo pipefail
+
+# 1. Smarter Platform Detection
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    PLATFORM="mac"
+elif [[ $(uname -r) == *microsoft* ]]; then
+    PLATFORM="wsl"
+else
+    PLATFORM="linux"
+fi
+export PLATFORM
+
+# 2. Abstract Unified Package Installer
+install_package() {
+    local packages=("$@")
+
+    if [[ "$PLATFORM" == "mac" ]]; then
+        # Quietly verify Homebrew is ready before installing
+        if command -v brew >/dev/null 2>&1; then
+            echo "🍏 Homebrew: Installing ${packages[*]}..."
+            brew install "${packages[@]}"
+        else
+            echo "❌ Error: Homebrew not found. Run scripts/brew first."
+            return 1
+        fi
+    elif [[ "$PLATFORM" == "wsl" || "$PLATFORM" == "linux" ]]; then
+        echo "🐳 Apt: Installing ${packages[*]} (Requires sudo)..."
+        sudo apt-get update -qq
+        sudo apt-get install -y "${packages[@]}"
+    fi
+}
