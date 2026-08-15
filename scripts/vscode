@@ -32,7 +32,7 @@ fi
 # 2. Safely back up any existing settings so you don't lose anything
 if [ -s "$VSCODE_SETTING_PATH" ]; then
     echo "🎒 Backing up existing VS Code settings..."
-    mv "$VSCODE_SETTING_PATH" "$ARCHIVE_DIR/settings.json.bak"
+    mv "$VSCODE_SETTING_PATH" "$ARCHIVE_DIR/vscode_settings.json.bak"
 fi
 
 # 3. Copy/Link your dotfiles settings into place
@@ -42,7 +42,7 @@ if [[ "$PLATFORM" == "mac" ]]; then
     echo "✅ VS Code settings synchronized."
 elif [[ "$PLATFORM" == "wsl" ]]; then
     # Symbolic links don't work well across the WSL/Windows boundary, so we copy instead
-    cp vscode/settings.json "$VSCODE_SETTING_PATH"
+    cp $HOME/.dotfiles/vscode/settings.json "$VSCODE_SETTING_PATH"
     echo "✅ VS Code settings copied into place."
 fi
 
@@ -50,7 +50,7 @@ fi
 # 4. Install Extensions
 if command -v code >/dev/null 2>&1; then
     echo "📦 Installing tracked VS Code extensions..."
-    
+
     # Read extensions line-by-line, ignoring comments or empty lines
     if [ -f "vscode/extensions" ]; then
         while read -r ext || [ -n "$ext" ]; do
@@ -61,7 +61,7 @@ if command -v code >/dev/null 2>&1; then
             fi
         done < vscode/extensions
     fi
-    
+
     # Keep your environment isolated: automatically add WSL remote context layer
     if [[ "$PLATFORM" == "wsl" ]]; then
         echo "🐳 Ensuring WSL Remote extension is active on host..."
