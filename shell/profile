@@ -58,3 +58,13 @@ export EDITOR="$VISUAL"
 [[ -f ~/.dotfiles/shell/zsh_extras ]] && source ~/.dotfiles/shell/zsh_extras
 # Load local-only machine overrides if they exist
 [[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
+# fnm
+FNM_PATH="/home/mg/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+    export PATH="$FNM_PATH:$PATH"
+    eval "$(fnm env --shell zsh)"
+fi
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/mg/.local/bin:$PATH"
