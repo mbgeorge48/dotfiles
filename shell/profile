@@ -36,7 +36,7 @@ fi
 # Node
 [[ -f "$HOME/.dotfiles/node/fnm" ]] && source "$HOME/.dotfiles/node/fnm"
 if command -v fnm &> /dev/null; then
-    eval "$(fnm env --use-on-cd --log-level=error)"
+    eval "$(fnm env --use-on-cd --log-level=error --shell zsh)"
 fi
 
 # GPG Setup (Crucial for Git commit signing)

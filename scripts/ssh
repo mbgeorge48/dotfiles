@@ -15,7 +15,7 @@ echo "🔑 Configuring local SSH folder permissions..."
 mkdir -p "$HOME/.ssh"
 chmod 700 "$HOME/.ssh"
 
-# If you have an active SSH config file tracking in your dotfiles, 
+# If you have an active SSH config file tracking in your dotfiles,
 # we can symlink it into place right here.
 
 echo "✅ SSH directory configuration complete."

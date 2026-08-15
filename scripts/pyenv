@@ -12,7 +12,7 @@ source scripts/common
 
 if ! command -v pyenv >/dev/null 2>&1; then
     echo "Installing pyenv..."
-    
+
     if [[ "$PLATFORM" == "mac" ]]; then
         # Homebrew cleanly handles everything on Mac natively
         install_package pyenv
@@ -22,7 +22,7 @@ if ! command -v pyenv >/dev/null 2>&1; then
         install_package build-essential libssl-dev zlib1g-dev libbz2-dev \
             libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev \
             libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev
-            
+
         # Use the official installer instead of a raw git clone for faster/cleaner setup
         if [ ! -d "$HOME/.pyenv" ]; then
             echo "📥 Downloading official pyenv engine..."

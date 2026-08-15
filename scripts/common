@@ -17,7 +17,7 @@ export PLATFORM
 # 2. Abstract Unified Package Installer
 install_package() {
     local packages=("$@")
-    
+
     if [[ "$PLATFORM" == "mac" ]]; then
         # Quietly verify Homebrew is ready before installing
         if command -v brew >/dev/null 2>&1; then
